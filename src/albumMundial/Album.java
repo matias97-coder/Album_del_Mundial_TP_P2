@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Album {
-
+	// hola Ema
 	String premio;
 	String codigoAlbum;
 	HashMap <String, ArrayList<String>> seccionesJugadores;

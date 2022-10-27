@@ -5,8 +5,8 @@ public class FiguritaTradicional extends Figurita
 	private String nombrePais;
 	private String nombreJugador;
 	
-	public FiguritaTradicional(int codigoFigurita, int valorBase, String nombrePais, String nombreJugador) {
-		super(codigoFigurita, valorBase);
+	public FiguritaTradicional(int codigoFigurita, int valorBase, int valorFinal, String nombrePais, String nombreJugador) {
+		super(codigoFigurita, valorBase, valorFinal);
 		this.nombrePais = nombrePais;
 		this.nombreJugador = nombreJugador;
 	}
@@ -20,8 +20,9 @@ public class FiguritaTradicional extends Figurita
 	}
 	
 	@Override
-	public int calcularValorFinal() {
-		return 0;
+	public int calcularValorFinal(int rankingPais) {
+		
+		return super.obtenerValorBase()+rankingPais;
 	}
 	
 	

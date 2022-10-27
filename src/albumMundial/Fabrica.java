@@ -64,9 +64,14 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 			int codig = aleatorio.nextInt(12); // nro de jugador entre 0 y 11, asociado a un codigo figura
 			String paisPart= paisesParticipantes[pais];
 			int valorBase=  calcularValorBase(paisPart, codig);
-			FiguritaTradicional figTraicional= new FiguritaTradicional (codig , valorBase, paisPart, "Jugador "+Integer.toString(codig));
+			Integer rankingPais= ranking.get(paisPart); 
 			
-			sobre.add(figTraicional);
+			FiguritaTradicional figTradicional= new FiguritaTradicional (codig , valorBase, 0 ,paisPart, "Jugador "+Integer.toString(codig));
+			
+			int valorFinal=figTradicional.calcularValorFinal(rankingPais);
+			figTradicional.cargarValorFinal(valorFinal);
+			
+			sobre.add(figTradicional);
 		}
 		return sobre;
 	
@@ -83,7 +88,6 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 			int premio = aleatorio.nextInt(2); // nro de jugador entre 0 y 1,   asociado a una 1er y 2do puesto
 			String sedeMundialTOP10= listadoDeMundialesTop10[sedeMunial];
 
-			
 			FiguritaTradicional figTraicional=null;
 			
 			sobreTOP10.add(figTraicional);
