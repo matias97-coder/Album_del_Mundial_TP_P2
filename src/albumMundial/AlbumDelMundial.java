@@ -1,12 +1,17 @@
 package albumMundial;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class AlbumDelMundial implements IAlbumDelMundial {
-
+	
+	private Fabrica fabrica;
+	private HashMap<String,Participante> participantes; //clave:dni valor:Participante
+	
 	public AlbumDelMundial() {
-		
+		fabrica= new Fabrica();
+		participantes= new HashMap <String,Participante>();
 	}
 	
 	

@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-//
 public class AlbumDelMundialTest {
+	
 	private static final String TIPO_TRADICIONAL = "Tradicional";
 	private static final String TIPO_EXTENDIDO = "Extendido";
 	private static final String TIPO_WEB = "Web";
