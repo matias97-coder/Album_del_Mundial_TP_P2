@@ -64,7 +64,7 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 			int codig = aleatorio.nextInt(12); // nro de jugador entre 0 y 11, asociado a un codigo figura
 			String paisPart= paisesParticipantes[pais];
 			int valorBase=  calcularValorBase(paisPart, codig);
-			FiguritaTradicional figTraicional= new 	FiguritaTradicional (codig , valorBase, paisPart, "Jugador "+Integer.toString(codig));
+			FiguritaTradicional figTraicional= new FiguritaTradicional (codig , valorBase, paisPart, "Jugador "+Integer.toString(codig));
 			
 			sobre.add(figTraicional);
 		}
