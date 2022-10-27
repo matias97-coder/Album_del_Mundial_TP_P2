@@ -8,16 +8,16 @@ public class FiguritaTOP10 extends Figurita{
 	
 	
 	
-	public FiguritaTOP10(int codigoFigurita, int valorBase, String sedeMundial, String anio, String tipoBalon) {
-		super(codigoFigurita, valorBase);
+	public FiguritaTOP10(int codigoFigurita, int valorBase, int valorFinal, String sedeMundial, String anio, String tipoBalon) {
+		super(codigoFigurita, valorBase, valorFinal);
 		this.sedeMundial = sedeMundial;
 		this.anio = anio;
 		this.tipoBalon = tipoBalon;
 	}
 
 
-	@Override
-	public int calcularValorFinal() {
+
+	public int calcularValorFinal(int rankingPais) {
 		return 0;
 	}
 
