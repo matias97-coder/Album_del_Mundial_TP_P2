@@ -64,14 +64,9 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 			int codig = aleatorio.nextInt(12); // nro de jugador entre 0 y 11, asociado a un codigo figura
 			String paisPart= paisesParticipantes[pais];
 			int valorBase=  calcularValorBase(paisPart, codig);
-			Integer rankingPais= ranking.get(paisPart); 
+			FiguritaTradicional figTraicional= new 	FiguritaTradicional (codig , valorBase, paisPart, "Jugador "+Integer.toString(codig));
 			
-			FiguritaTradicional figTradicional= new FiguritaTradicional (codig , valorBase, 0 ,paisPart, "Jugador "+Integer.toString(codig));
-			
-			int valorFinal=figTradicional.calcularValorFinal(rankingPais);
-			figTradicional.cargarValorFinal(valorFinal);
-			
-			sobre.add(figTradicional);
+			sobre.add(figTraicional);
 		}
 		return sobre;
 	
@@ -83,18 +78,29 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		Random aleatorio = new Random(System.currentTimeMillis());
 		
 		for (int i=0;i<cantFigus;i++) {
+			FiguritaTOP10 figTOP = null;
+			int sedesMundiales = aleatorio.nextInt(10); // aleatorio entre 0 y 9 asociado a una sedeMundial
+			int premioBalon = aleatorio.nextInt(2); // nro de jugador entre 0 y 1,   asociado a una 1er y 2do puesto
+			String sedeMundialTOP10= listadoDeMundialesTop10[sedesMundiales];
+			String puesto []=balonYPaisPorMundialTop10.get(sedeMundialTOP10); // Hay 2 posiciones, con el nombre del pais ganador
+			String anio= sedeMundialTOP10.substring(sedeMundialTOP10.length()-3, sedeMundialTOP10.length());
+			int valorBase=  calcularValorBase(sedeMundialTOP10, premioBalon);
 			
-			int sedeMunial = aleatorio.nextInt(10); // aleatorio entre 0 y 9 asociado a una sedeMundial
-			int premio = aleatorio.nextInt(2); // nro de jugador entre 0 y 1,   asociado a una 1er y 2do puesto
-			String sedeMundialTOP10= listadoDeMundialesTop10[sedeMunial];
-
-			FiguritaTradicional figTraicional=null;
 			
-			sobreTOP10.add(figTraicional);
+			if (premioBalon==0) {
+				 figTOP = new FiguritaTOP10(premioBalon, valorBase, sedeMundialTOP10, anio, "oro",puesto[0]);
+			}
+			else {
+				 figTOP = new FiguritaTOP10(premioBalon, valorBase, sedeMundialTOP10, anio, "plata", puesto[1]);
+			}
+			
+			
+			sobreTOP10.add(figTOP);
 		}
 		
 		return sobreTOP10;
 	}
+
 
 
 	///////////////////////////////////////////////////////

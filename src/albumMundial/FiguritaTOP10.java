@@ -5,14 +5,16 @@ public class FiguritaTOP10 extends Figurita{
 	private String sedeMundial;
 	private String anio;
 	private String tipoBalon;
+	private String nombreJugador;
 	
 	
 	
-	public FiguritaTOP10(int codigoFigurita, int valorBase, int valorFinal, String sedeMundial, String anio, String tipoBalon) {
-		super(codigoFigurita, valorBase, valorFinal);
+	public FiguritaTOP10(int codigoFigurita, int valorBase, String sedeMundial, String anio, String tipoBalon, String nombreJugador) {
+		super(codigoFigurita, valorBase);
 		this.sedeMundial = sedeMundial;
 		this.anio = anio;
 		this.tipoBalon = tipoBalon;
+		this.nombreJugador=nombreJugador;
 	}
 
 

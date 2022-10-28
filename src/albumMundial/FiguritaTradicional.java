@@ -5,8 +5,8 @@ public class FiguritaTradicional extends Figurita
 	private String nombrePais;
 	private String nombreJugador;
 	
-	public FiguritaTradicional(int codigoFigurita, int valorBase, int valorFinal, String nombrePais, String nombreJugador) {
-		super(codigoFigurita, valorBase, valorFinal);
+	public FiguritaTradicional(int codigoFigurita, int valorBase, String nombrePais, String nombreJugador) {
+		super(codigoFigurita, valorBase);
 		this.nombrePais = nombrePais;
 		this.nombreJugador = nombreJugador;
 	}
