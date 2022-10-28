@@ -14,7 +14,6 @@ el valor base de las figuritas, los premios, los países y sus ranking,
  y los datos de los mundiales. También se brindan los 32 países clasificados.*/
 
 	private Random random;
-
 	private String[] premiosInstantaneos;
 	private String[] paisesParticipantes;
 	private int lugaresPorPais;
