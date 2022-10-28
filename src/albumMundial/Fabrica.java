@@ -80,7 +80,7 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		for (int i=0;i<cantFigus;i++) {
 			FiguritaTOP10 figTOP = null;
 			int sedesMundiales = aleatorio.nextInt(10); // aleatorio entre 0 y 9 asociado a una sedeMundial
-			int premioBalon = aleatorio.nextInt(2); // nro de jugador entre 0 y 1,   asociado a una 1er y 2do puesto
+			int premioBalon = aleatorio.nextInt(2); // nro de jugador entre 0 y 1, asociado a una 1er y 2do puesto
 			String sedeMundialTOP10= listadoDeMundialesTop10[sedesMundiales];
 			String puesto []=balonYPaisPorMundialTop10.get(sedeMundialTOP10); // Hay 2 posiciones, con el nombre del pais ganador
 			String anio= sedeMundialTOP10.substring(sedeMundialTOP10.length()-3, sedeMundialTOP10.length());
