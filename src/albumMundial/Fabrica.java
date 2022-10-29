@@ -42,15 +42,32 @@ el valor base de las figuritas, los premios, los paÃ­ses y sus ranking,
 	////////////////////////////////////////////////////////////////////////
 
 	public Album crearAlbumWeb() {
-        throw new RuntimeException("A Implementar");
+		Random numRandom = new Random(System.currentTimeMillis());
+		Integer codigoAlbum = numRandom.nextInt(999);
+		String premio = "Camiseta oficial de la selección";
+		String [] paisesClasificados = generarPaisesClasificados();
+		String codigoPromocional = "PROMO" + Integer.toString(numRandom.nextInt(999999));
+		
+		return new AlbumWeb(premio, codigoAlbum, paisesClasificados, codigoPromocional);
 	}
 
 	public Album crearAlbumExtendido() {
-        throw new RuntimeException("A Implementar");
+		Random numRandom = new Random(System.currentTimeMillis());
+		Integer codigoAlbum = numRandom.nextInt(999);
+		String premio = "Pelota y un viaje";
+		String [] paisesClasificados = generarPaisesClasificados();
+		String [] paisesTop10 = generarListadoDeMundiales();
+		
+		return new AlbumExtendido(premio, codigoAlbum, paisesClasificados, paisesTop10);
 	}
 
 	public Album crearAlbumTradicional() {
-		throw new RuntimeException("A Implementar");
+		Random numRandom = new Random(System.currentTimeMillis());
+		Integer codigoAlbum = numRandom.nextInt(999);
+		String premio = "Pelota";
+		String [] paisesClasificados = generarPaisesClasificados();
+		Integer numeroSorteo = numRandom.nextInt(99);
+		return new AlbumTradicional(premio, codigoAlbum, paisesClasificados, numeroSorteo);
 	}
 
 	public List<Figurita> generarSobre(int cantFigus) {

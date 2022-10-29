@@ -6,9 +6,9 @@ public class Participante {
 	private Album album;
 	private ArrayList<Figurita> coleccionDeFiguritas;
 	private String nombreUsuario;
-	private String dni;
+	private int dni;
 	
-	public Participante(Album album, String nombreUsuario, String dni) {
+	public Participante(Album album, String nombreUsuario, int dni) {
 		this.album = album;
 		this.nombreUsuario = nombreUsuario;
 		this.dni = dni;

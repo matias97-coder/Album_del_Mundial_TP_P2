@@ -7,11 +7,11 @@ import java.util.List;
 public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	private Fabrica fabrica;
-	private HashMap<String,Participante> participantes; //clave:dni valor:Participante
+	private HashMap<Integer, Participante> participantes; //clave:dni valor:Participante
 	
 	public AlbumDelMundial() {
 		fabrica= new Fabrica();
-		participantes= new HashMap <String,Participante>();
+		participantes= new HashMap <Integer,Participante>();
 	}
 	
 	
@@ -25,8 +25,38 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public int registrarParticipante(int dni, String nombre, String tipoAlbum) {
-		return 0;
+		if(participantes.containsKey(dni)) {
+			throw new RuntimeException("Participante ya existe");
+		}
+		
+		Album album = generarAlbum(tipoAlbum);
+		if(album==null) {
+			throw new RuntimeException("Tipo de album inválido");
+		}
+		
+		Participante participante = new Participante(album, nombre, dni);
+		participantes.put(dni, participante);
+		return album.obtenerCodigo();
 	}
+	
+	private Album generarAlbum(String tipoAlbum) {
+		Album album;
+		if(tipoAlbum.equals("web")) {
+			album = fabrica.crearAlbumWeb();
+		}else {
+				if(tipoAlbum.equals("extendido")){
+					album = fabrica.crearAlbumExtendido();
+				}else {
+					if(tipoAlbum.equals("tradicional")) {
+						album = fabrica.crearAlbumTradicional();
+					}else {
+						album = null;
+					}
+				}
+		}
+		return album;
+	}
+	
 	/**
 	* Se generan 4 figuritas al azar y se asocia al participante
 	* correspondiente identificado por dni
