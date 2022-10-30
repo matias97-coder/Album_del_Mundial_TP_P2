@@ -65,20 +65,38 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public void comprarFiguritas(int dni) {
+		Participante part= participantes.get(dni);
 		
+		if(!participantes.containsKey(dni)) {
+			throw new RuntimeException("Participante no esta registrado");
+		}
+		
+		
+		List<Figurita> fig = fabrica.generarSobre(4);
+		part.agregarFiguritasASuColeccion(fig);
 	}
 	/**
 	* Se generan 4 figuritas top 10 al azar y
 	* se asocia al participante correspondiente identificado por dni
 	*
-	5 de 7
 	* Si el participante no está registrado, se debe lanzar una excepción.
 	* Si el participante no tiene album top10, se debe lanzar una excepción.
 	*/
 	
 	@Override
 	public void comprarFiguritasTop10(int dni) {
+	Participante part= participantes.get(dni);
 		
+		if(!participantes.containsKey(dni)) {
+			throw new RuntimeException("Participante no esta registrado");
+		}
+		
+		if (part.obtenerTipoDeAlbum().equals("Extendido")) {
+			throw new RuntimeException("El participante no tiene el Album extendido");
+		}
+		
+		List<Figurita> fig = fabrica.generarSobreTop10(4);
+		part.agregarFiguritasASuColeccion(fig);
 	}
 	/**
 	* Compra por única vez un grupo de 4 figuritas con el codigo promocional

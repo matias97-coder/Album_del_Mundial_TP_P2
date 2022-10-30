@@ -1,6 +1,7 @@
 package albumMundial;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Participante {
 	private Album album;
@@ -24,8 +25,8 @@ public class Participante {
 
 		}
 
-	public void agregarFiguritasASuColeccion (Figurita fig){
-
+	public void agregarFiguritasASuColeccion (List<Figurita> figus){
+		coleccionDeFiguritas.addAll(figus);
 	}
 
 	public void intercambiarFigurita(Figurita figuritaADar, Figurita figuritaARecibir){
@@ -36,4 +37,17 @@ public class Participante {
 		
 		return false;
 	}
+	
+	public String obtenerTipoDeAlbum () {
+		if (album instanceof AlbumTradicional) 
+			return "Tradicional";
+	
+		if (album instanceof AlbumWeb)
+			return "Web";
+		
+		return "Extendido";
+	}
+	
+	
+	
 }
