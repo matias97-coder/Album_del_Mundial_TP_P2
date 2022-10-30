@@ -15,4 +15,25 @@ public class Participante {
 		coleccionDeFiguritas= new ArrayList<Figurita>();
 	}
 	
+	public boolean poseeAlbumCompleto (){
+
+		return false;
+	}
+
+	public void pegasFiguritasAlAlbum (){
+
+		}
+
+	public void agregarFiguritasASuColeccion (Figurita fig){
+
+	}
+
+	public void intercambiarFigurita(Figurita figuritaADar, Figurita figuritaARecibir){
+
+	}
+	
+	public boolean estaFiguritaEnColeccion (Figurita fig){
+		
+		return false;
+	}
 }
