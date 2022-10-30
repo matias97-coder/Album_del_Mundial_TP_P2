@@ -41,13 +41,13 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	private Album generarAlbum(String tipoAlbum) {
 		Album album;
-		if(tipoAlbum.equals("web")) {
+		if(tipoAlbum.equals("Web")) {
 			album = fabrica.crearAlbumWeb();
 		}else {
-				if(tipoAlbum.equals("extendido")){
+				if(tipoAlbum.equals("Extendido")){
 					album = fabrica.crearAlbumExtendido();
 				}else {
-					if(tipoAlbum.equals("tradicional")) {
+					if(tipoAlbum.equals("Tradicional")) {
 						album = fabrica.crearAlbumTradicional();
 					}else {
 						album = null;
