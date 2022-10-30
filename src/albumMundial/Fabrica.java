@@ -41,18 +41,18 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	////////////////////////////////////////////////////////////////////////
 
 	public Album crearAlbumWeb() {
-		Random numRandom = new Random(System.currentTimeMillis());
-		Integer codigoAlbum = numRandom.nextInt(999);
-		String premio = "Camiseta oficial de la selecci�n";
+	
+		Integer codigoAlbum = random.nextInt(999);
+		String premio = "Camiseta oficial de la selecci�n";
 		String [] paisesClasificados = generarPaisesClasificados();
-		String codigoPromocional = "PROMO" + Integer.toString(numRandom.nextInt(999999));
+		String codigoPromocional = "PROMO" + Integer.toString(random.nextInt(999999));
 		
 		return new AlbumWeb(premio, codigoAlbum, paisesClasificados, codigoPromocional);
 	}
 
 	public Album crearAlbumExtendido() {
-		Random numRandom = new Random(System.currentTimeMillis());
-		Integer codigoAlbum = numRandom.nextInt(999);
+	
+		Integer codigoAlbum = random.nextInt(999);
 		String premio = "Pelota y un viaje";
 		String [] paisesClasificados = generarPaisesClasificados();
 		String [] paisesTop10 = generarListadoDeMundiales();
@@ -61,26 +61,26 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	}
 
 	public Album crearAlbumTradicional() {
-		Random numRandom = new Random(System.currentTimeMillis());
-		Integer codigoAlbum = numRandom.nextInt(999);
+		
+		Integer codigoAlbum = random.nextInt(999);
 		String premio = "Pelota";
 		String [] paisesClasificados = generarPaisesClasificados();
-		Integer numeroSorteo = numRandom.nextInt(99);
+		Integer numeroSorteo = random.nextInt(99);
 		return new AlbumTradicional(premio, codigoAlbum, paisesClasificados, numeroSorteo);
 	}
 
 	public List<Figurita> generarSobre(int cantFigus) {
 		ArrayList<Figurita> sobre= new ArrayList<Figurita>();
 		
-		Random aleatorio = new Random(System.currentTimeMillis());
+
 		
 		for (int i=0;i<cantFigus;i++) {
 		
-			int pais = aleatorio.nextInt(32); // aleatorio entre 0 y 31 asociado a un paisParticipante
-			int codig = aleatorio.nextInt(12); // nro de jugador entre 0 y 11, asociado a un codigo figura
+			int pais = random.nextInt(32); // aleatorio entre 0 y 31 asociado a un paisParticipante
+			int codig = random.nextInt(lugaresPorPais); // nro de jugador entre 0 y 11, asociado a un codigo figura
 			String paisPart= paisesParticipantes[pais];
 			int valorBase=  calcularValorBase(paisPart, codig);
-			FiguritaTradicional figTraicional= new 	FiguritaTradicional (codig , valorBase, paisPart, "Jugador "+Integer.toString(codig));
+			Figurita figTraicional= new FiguritaTradicional (codig , valorBase, paisPart, "Jugador "+Integer.toString(codig));
 			
 			sobre.add(figTraicional);
 		}
@@ -94,7 +94,7 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		Random aleatorio = new Random(System.currentTimeMillis());
 		
 		for (int i=0;i<cantFigus;i++) {
-			FiguritaTOP10 figTOP = null;
+			Figurita figTOP;
 			int sedesMundiales = aleatorio.nextInt(10); // aleatorio entre 0 y 9 asociado a una sedeMundial
 			int premioBalon = aleatorio.nextInt(2); // nro de jugador entre 0 y 1, asociado a una 1er y 2do puesto
 			String sedeMundialTOP10= listadoDeMundialesTop10[sedesMundiales];
