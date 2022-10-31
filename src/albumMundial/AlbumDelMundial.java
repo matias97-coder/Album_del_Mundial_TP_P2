@@ -109,7 +109,23 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public void comprarFiguritasConCodigoPromocional(int dni) {
+		Participante part= participantes.get(dni);
+		Album album=part.obtenerAlbum();
 		
+		if(!participantes.containsKey(dni)) 
+			throw new RuntimeException("Participante no esta registrado");
+		
+		if (((AlbumWeb)album).estaCodigoPromocionalUtilizado())
+			throw new RuntimeException("El codigo promocional ya fue utilizado");
+		
+		if (album.tieneCodigoPromocional()==false)
+			throw new RuntimeException("El participante no tiene codigo promocional");
+		
+		if (album instanceof AlbumWeb) 
+			if ( ! ((AlbumWeb)album).estaCodigoPromocionalUtilizado())
+				part.agregarFiguritasASuColeccion(fabrica.generarSobre(4));
+				((AlbumWeb)album).usarCodigoPromocional(null); // el codig promocional pasa ser null
+			
 	}
 	/**
 	* Busca entre las figuritas del participante cuales aún no están en el

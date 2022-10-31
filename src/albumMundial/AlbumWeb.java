@@ -13,10 +13,16 @@ public class AlbumWeb extends Album{
 	}
 	
 	 public boolean estaCodigoPromocionalUtilizado() {
-		 return codigoPromocional!=null;
+		 return codigoPromocional==null;
 	 }
 	 
-	 public void cargarCodigoPromocional(String codPromocional) {
-		 codigoPromocional=codPromocional;
+	 public void usarCodigoPromocional(String codPromocional) {
+		 this.codigoPromocional=codPromocional;
 	 }
+	 
+		@Override
+		public boolean tieneCodigoPromocional () {
+			return codigoPromocional!=null;
+		}
+		
 }

@@ -30,5 +30,9 @@ public class AlbumExtendido extends Album {
 		return mapaSeccionTop10;
 	}
 	
+	@Override
+	public boolean tieneCodigoPromocional () {
+		return false;
+	}
 	
 }

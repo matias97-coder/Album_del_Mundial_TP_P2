@@ -16,4 +16,11 @@ public class AlbumTradicional extends Album{
 	 public void cargarNumeroSorteo(Integer numSorteo) {
 		 numeroSorteo=numSorteo;
 	 }
+	 
+		@Override
+		public boolean tieneCodigoPromocional () {
+			return false;
+		}
+		
+	 
 }

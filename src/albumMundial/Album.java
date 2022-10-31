@@ -5,7 +5,7 @@ package albumMundial;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Album {
+public abstract class Album {
 	
 	String premio;
 	Integer codigoAlbum;
@@ -72,6 +72,6 @@ public class Album {
 		return mapaSeccionJugadores;
 	}
 
-
+	public abstract boolean tieneCodigoPromocional ();
 	
 }
