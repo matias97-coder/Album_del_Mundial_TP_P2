@@ -160,5 +160,6 @@ public class AlbumDelMundialTest {
 	public void t20_consultarParticipantesQueCompletaronArgentinaConJuegoRecienEmpezado_DevuelveListaVacia() {
 		List<String> completaronPais=sistema.participantesQueCompletaronElPais("Argentina");
 		assertEquals(0, completaronPais.size());
+	
 	}
 }
