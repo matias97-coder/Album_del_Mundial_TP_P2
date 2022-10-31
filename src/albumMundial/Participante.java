@@ -38,6 +38,10 @@ public class Participante {
 		return false;
 	}
 	
+	public Album obtenerAlbum () {
+		return album;
+	}
+	
 	public String obtenerTipoDeAlbum () {
 		if (album instanceof AlbumTradicional) 
 			return "Tradicional";
