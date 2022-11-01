@@ -9,11 +9,12 @@ public abstract class Album {
 
 	private int figuritasTotales=0;
 	private int cantJugadoresEquipo=12;
+	private int paisesParticipantes=32;
 	private String premio;
 	private Integer codigoAlbum;
 	private String  [] paisesClasificados ;
 	private HashMap <String, SeccionTradicional> seccionesJugadores;
-	private int totalJugadores= paisesClasificados.length*cantJugadoresEquipo; 
+	private int totalJugadores= paisesParticipantes*cantJugadoresEquipo; 
 	
 	public Album(String premio, Integer codigoAlbum,  String [] paisesClasificados) {
 		this.premio = premio;
