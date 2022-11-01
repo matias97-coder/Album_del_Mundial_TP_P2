@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	private Fabrica fabrica;
@@ -252,9 +253,21 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public List<String> participantesQueCompletaronElPais(String nombrePais){
-		LinkedList<String> participantesARG= new LinkedList();
+
+		LinkedList<String> partCompletaronPais= new LinkedList<String>();
 		
-		return participantesARG;
+		for(Integer key : participantes.keySet()) { // recorro todas las keys del diccionario participante
+			Participante part = participantes.get(key);
+			Album alb=part.obtenerAlbum();
+			
+			if (alb.completoSeccionPais(nombrePais)) {
+				String dato="($dni " +String.valueOf(part.obtenerDNI())+") $nombre: "
+				+part.obtenerNombreUsuario()+ " $tipoAlbum "+part.obtenerAlbum();
+				
+				partCompletaronPais.add(dato);
+			}
+		}
+		return partCompletaronPais;
 	}
 	
 	
