@@ -2,30 +2,20 @@ package albumMundial;
 
 public class FiguritaTOP10 extends Figurita{
 
-	private String sedeMundial;
 	private String anio;
 	private String tipoBalon;
-	private String nombreJugador;
-	
-	
-	
-	public FiguritaTOP10(int codigoFigurita, int valorBase, String sedeMundial, String anio, String tipoBalon, String nombreJugador) {
-		super(codigoFigurita, valorBase);
-		this.sedeMundial = sedeMundial;
+
+	public FiguritaTOP10(int codigoFigurita, int valorBase, Integer rankingPais, String nombrePais,
+			String nombreJugador, String anio, String tipoBalon) {
+		super(codigoFigurita, valorBase, rankingPais, nombrePais, nombreJugador);
 		this.anio = anio;
 		this.tipoBalon = tipoBalon;
-		this.nombreJugador=nombreJugador;
 	}
 
 
 
 	public int calcularValorFinal(int rankingPais) {
 		return 0;
-	}
-
-
-	public String obtenerSedeMundial() {
-		return sedeMundial;
 	}
 
 
@@ -40,7 +30,15 @@ public class FiguritaTOP10 extends Figurita{
 	}
 
 
-
+	@Override
+	public int calcularValorFinal() {
+		
+		if (tipoBalon.equals("oro"))
+			return (super.obtenerValorBase()+super.obtenerRankingPais())*120/100;
+		
+		return (super.obtenerValorBase()+super.obtenerRankingPais())*110/100;
+	}
+	
 	
 	
 }

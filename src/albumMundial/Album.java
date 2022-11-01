@@ -2,29 +2,32 @@
 
 package albumMundial;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Album {
 	
-	String premio;
-	Integer codigoAlbum;
-	HashMap <String, ArrayList<String>> seccionesJugadores;
-	String [] paisesClasificados;
+
+	private int figuritasTotales=0;
+	private int cantJugadoresEquipo=12;
+	private String premio;
+	private Integer codigoAlbum;
+	private String  [] paisesClasificados ;
+	private HashMap <String, SeccionTradicional> seccionesJugadores;
+	private int totalJugadores= paisesClasificados.length*cantJugadoresEquipo; 
 	
 	public Album(String premio, Integer codigoAlbum,  String [] paisesClasificados) {
 		this.premio = premio;
 		this.codigoAlbum = codigoAlbum;
-		this.seccionesJugadores= generarSeccionJugadores();
 		this.paisesClasificados = paisesClasificados;
+		this.seccionesJugadores= generarSeccionJugadores();
 	} 
 
 	public Album() {
 		
 	}
 	
-	public Integer obtenerCodigo() {
-		return this.codigoAlbum;
+	public Integer obtenerCodigoAlbum() {
+		return codigoAlbum;
 	}
 	
 	public void cargarPremio(String premio) {
@@ -32,46 +35,55 @@ public abstract class Album {
 	}
 	public String obtenerPremio() {
 		
-		return null;
+		return premio;
+	}
+	
+	public int cantTotalDeFiguritasPegadas () {
+		return figuritasTotales;
+	}
+	
+	public int cantJugadoresTotales() {
+		return  totalJugadores;
 	}
 	
 	public String obtenerNumeroDeCodigoAlbum() {
 		return null;
 	}
 	public void pegarFiguraEnElAlbum(Figurita fig) {
-		
+		if (! tienePegadaFigurita(fig)) {
+			seccionesJugadores.get(fig.obtenerNombrePais()).pegarFiguritaEnLaSeccion(fig);
+			figuritasTotales++;
+		}
 	}
+	
 	public boolean tienePegadaFigurita(Figurita fig)
 	{
-		return false;
+		return seccionesJugadores.get(fig.obtenerNombrePais()).tieneFiguritaPegadaSeccion(fig);
 	}
-	public boolean estaCompleta() {
-		return false;
-	}
+
 	public void reclamarPremio() {
 		
 	}
 	public boolean completoSeccionPais (String pais) {
-		return false;
+		// solo sirve para los albunes comunes
+		return seccionesJugadores.get(pais).seccionCompleta();
 	}
 	
-	private ArrayList<String> generarListaJugadores(){
-		ArrayList<String> listaJugadores = new ArrayList<String>();
-		String espacioLibre = "";
-		for (int i = 0; i < 12; i++) {
-			listaJugadores.add(espacioLibre);
-		}
-		return listaJugadores;
-	}
 
-	private HashMap<String, ArrayList<String>> generarSeccionJugadores(){
-		HashMap<String, ArrayList<String>> mapaSeccionJugadores = new HashMap<String, ArrayList<String>>();
-		for (int i = 0; i < 32; i++) {
-			mapaSeccionJugadores.put(paisesClasificados[i], generarListaJugadores());
+	private HashMap<String, SeccionTradicional> generarSeccionJugadores(){
+		HashMap<String, SeccionTradicional> mapaSeccionJugadores = new HashMap<String, SeccionTradicional>();
+	
+		for (String pais: paisesClasificados) {
+			SeccionTradicional seccion= new SeccionTradicional();
+			mapaSeccionJugadores.put(pais, seccion);
+		
 		}
 		return mapaSeccionJugadores;
 	}
+	
+	
 
 	public abstract boolean tieneCodigoPromocional ();
+	public abstract boolean completoAlbum();
 	
 }

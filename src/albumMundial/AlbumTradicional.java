@@ -3,8 +3,8 @@ package albumMundial;
 public class AlbumTradicional extends Album{
 
 	Integer numeroSorteo;
-	
-	 public AlbumTradicional(String premio, Integer codigoAlbum, String[] paisesClasificados, Integer numeroSorteo) {
+
+	public AlbumTradicional(String premio, Integer codigoAlbum, String[] paisesClasificados, Integer numeroSorteo) {
 		super(premio, codigoAlbum, paisesClasificados);
 		this.numeroSorteo = numeroSorteo;
 	}
@@ -22,5 +22,8 @@ public class AlbumTradicional extends Album{
 			return false;
 		}
 		
-	 
+		@Override
+		public boolean completoAlbum() {
+			return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas();
+		}
 }

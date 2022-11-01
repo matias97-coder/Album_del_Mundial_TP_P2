@@ -20,9 +20,15 @@ public class AlbumWeb extends Album{
 		 this.codigoPromocional=codPromocional;
 	 }
 	 
-		@Override
-		public boolean tieneCodigoPromocional () {
-			return codigoPromocional!=null;
-		}
+	@Override
+	public boolean tieneCodigoPromocional () {
+		return codigoPromocional!=null;
+	}
+		
+		
+	@Override
+	public boolean completoAlbum() {
+		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas();
+	}
 		
 }

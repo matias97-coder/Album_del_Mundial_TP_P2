@@ -1,5 +1,5 @@
 package albumMundial;
-/*comentario segudno*/
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +8,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	private Fabrica fabrica;
 	private HashMap<Integer, Participante> participantes; //clave:dni valor:Participante
-	
+
 	public AlbumDelMundial() {
 		fabrica= new Fabrica();
 		participantes= new HashMap <Integer,Participante>();
@@ -30,32 +30,16 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		}
 		
 		Album album = generarAlbum(tipoAlbum);
-		if(album==null) {
+		
+		if(album.equals(null)) {
 			throw new RuntimeException("Tipo de album inválido");
 		}
 		
 		Participante participante = new Participante(album, nombre, dni);
 		participantes.put(dni, participante);
-		return album.obtenerCodigo();
+		return album.obtenerCodigoAlbum();
 	}
 	
-	private Album generarAlbum(String tipoAlbum) {
-		Album album;
-		if(tipoAlbum.equals("Web")) {
-			album = fabrica.crearAlbumWeb();
-		}else {
-				if(tipoAlbum.equals("Extendido")){
-					album = fabrica.crearAlbumExtendido();
-				}else {
-					if(tipoAlbum.equals("Tradicional")) {
-						album = fabrica.crearAlbumTradicional();
-					}else {
-						album = null;
-					}
-				}
-		}
-		return album;
-	}
 	
 	/**
 	* Se generan 4 figuritas al azar y se asocia al participante
@@ -71,9 +55,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 			throw new RuntimeException("Participante no esta registrado");
 		}
 		
-		
-		List<Figurita> fig = fabrica.generarSobre(4);
-		part.agregarFiguritasASuColeccion(fig);
+		part.agregarFiguritasASuColeccion(fabrica.generarSobre(4));
 	}
 	/**
 	* Se generan 4 figuritas top 10 al azar y
@@ -91,12 +73,11 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 			throw new RuntimeException("Participante no esta registrado");
 		}
 		
-		if (part.obtenerTipoDeAlbum().equals("Extendido")) {
+		if (! (part.obtenerAlbum() instanceof AlbumExtendido)) {
 			throw new RuntimeException("El participante no tiene el Album extendido");
 		}
 		
-		List<Figurita> fig = fabrica.generarSobreTop10(4);
-		part.agregarFiguritasASuColeccion(fig);
+		part.agregarFiguritasASuColeccion(fabrica.generarSobreTop10(4));
 	}
 	/**
 	* Compra por única vez un grupo de 4 figuritas con el codigo promocional
@@ -118,14 +99,15 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		if (((AlbumWeb)album).estaCodigoPromocionalUtilizado())
 			throw new RuntimeException("El codigo promocional ya fue utilizado");
 		
-		if (album.tieneCodigoPromocional()==false)
+		if (! album.tieneCodigoPromocional())
 			throw new RuntimeException("El participante no tiene codigo promocional");
 		
-		if (album instanceof AlbumWeb) 
-			if ( ! ((AlbumWeb)album).estaCodigoPromocionalUtilizado())
+		if (album instanceof AlbumWeb) { 
+			if ( ! ((AlbumWeb)album).estaCodigoPromocionalUtilizado()) {
 				part.agregarFiguritasASuColeccion(fabrica.generarSobre(4));
 				((AlbumWeb)album).usarCodigoPromocional(null); // el codig promocional pasa ser null
-			
+			}
+		}
 	}
 	/**
 	* Busca entre las figuritas del participante cuales aún no están en el
@@ -138,9 +120,20 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public List<String> pegarFiguritas(int dni){
-		LinkedList<String> figuritasNoAlbum = new LinkedList();
+		LinkedList<String> figuritasNoPegadas = new LinkedList();
 		
-		return figuritasNoAlbum;
+		Participante part= participantes.get(dni);
+		
+		for (Figurita fig:part.obtenerColeccionDeFiguritas()) {
+			if (fig.sePegoLaFigurita()==false) {
+				//pega la figurita en el album
+				figuritasNoPegadas.add("algo");
+			}
+			
+		}
+		
+	
+		return figuritasNoPegadas;
 	}
 	/**
 	* Verifica si el participante identificado por dni ya completó el album.
@@ -152,8 +145,12 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public boolean llenoAlbum(int dni) {
+		if(!participantes.containsKey(dni)) 
+			throw new RuntimeException("Participante no esta registrado");
 		
-		return false;
+		Participante part= participantes.get(dni);
+		Album album = part.obtenerAlbum();
+		return album.completoAlbum();
 	}
 	/**
 	* Realiza el sorteo instantaneo con el codigo asociado al album
@@ -166,12 +163,10 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public String aplicarSorteoInstantaneo(int dni) {
-		
 		return null;
 	}
 	/**
 	* Busca si el participante tiene alguna figurita repetida y devuelve
-	6 de 7
 	* el codigo de la primera que encuentre.
 	* Si no encuentra ninguna, devuelve el codigo -1.
 	*
@@ -190,8 +185,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	* con un valor menor o igual al de la figurita a cambiar.
 	* En caso de encontrar alguno, realiza el intercambio y devuelve true.
 	* Si no se encuentra ninguna para cambiar, devuelve false.
-	*
-	*
+
 	* Si el participante no está registrado o no es dueño de la figurita a
 	* cambiar, se debe lanzar una excepción.
 	*/
@@ -221,7 +215,8 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public String darNombre(int dni) {
-		return null;
+		Participante part= participantes.get(dni);
+		return part.obtenerNombreUsuario();
 	}
 	/**
 	* Dado el dni de un participante, devuelve el premio correspondiente
@@ -260,6 +255,27 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		LinkedList<String> participantesARG= new LinkedList();
 		
 		return participantesARG;
+	}
+	
+	
+	//METODOS AUXILIARES
+
+	private Album generarAlbum(String tipoAlbum) {
+		Album album;
+		if(tipoAlbum.equals("Web")) {
+			album = fabrica.crearAlbumWeb();
+		}else {
+				if(tipoAlbum.equals("Extendido")){
+					album = fabrica.crearAlbumExtendido();
+				}else {
+					if(tipoAlbum.equals("Tradicional")) {
+						album = fabrica.crearAlbumTradicional();
+					}else {
+						album = null;
+					}
+				}
+		}
+		return album;
 	}
 	
 }

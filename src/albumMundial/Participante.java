@@ -33,6 +33,14 @@ public class Participante {
 
 	}
 	
+	public int obtenerDNI() {
+		return dni;	
+	}
+	
+	public String obtenerNombreUsuario() {
+		return nombreUsuario;
+	}
+	
 	public boolean estaFiguritaEnColeccion (Figurita fig){
 		
 		return false;
@@ -42,16 +50,19 @@ public class Participante {
 		return album;
 	}
 	
-	public String obtenerTipoDeAlbum () {
-		if (album instanceof AlbumTradicional) 
-			return "Tradicional";
-	
-		if (album instanceof AlbumWeb)
-			return "Web";
-		
-		return "Extendido";
+	public ArrayList<Figurita> obtenerColeccionDeFiguritas(){
+		return coleccionDeFiguritas;
 	}
-	
+
+	public String tipoAlbum () {
+		if (album instanceof AlbumTradicional)
+			return "Tradicional";
+		if (album instanceof AlbumWeb)
+			return "WEB";
+		if (album instanceof AlbumExtendido)
+			return "Extendido";
+		return null;
+	}
 	
 	
 }
