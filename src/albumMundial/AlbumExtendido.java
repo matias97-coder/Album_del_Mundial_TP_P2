@@ -65,7 +65,6 @@ public class AlbumExtendido extends Album {
 	
 	@Override
 	public boolean completoAlbum() {
-		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas() && seccionTOP10completa ();
+		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas() && figuritasTOPpegadas == totalJugadoresTOP  ;
 	}
-	
 }

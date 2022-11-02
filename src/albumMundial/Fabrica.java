@@ -78,7 +78,7 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 			int valorBase=  calcularValorBase(paisPart, codig);
 			int rankingPais = ranking.get(paisPart);
 			
-			Figurita figTraicional= new Figurita(codig , valorBase, rankingPais, paisPart, "Jugador "+Integer.toString(codig));
+			Figurita figTraicional= new FiguritaTradicional(codig , valorBase, rankingPais, paisPart, "Jugador "+Integer.toString(codig));
 		
 			sobre.add(figTraicional);
 		}

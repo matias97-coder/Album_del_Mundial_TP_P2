@@ -241,7 +241,18 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public String listadoDeGanadores() {
-		return null;
+		String  listado="";
+		for(Integer key : participantes.keySet()) { // recorro todas las keys del diccionario participante
+			Participante part = participantes.get(key);
+			Album alb=part.obtenerAlbum();
+			
+			if (alb.completoAlbum()) {
+				listado+="($dni " +String.valueOf(part.obtenerDNI())+") $nombre: "
+						+part.obtenerNombreUsuario()+ " $premio "+alb.obtenerPremio()+"\n";
+			}
+			
+		}
+		return listado;
 	}
 	/**
 	* Devuelve una lista con todos los participantes que llenaron el pais
