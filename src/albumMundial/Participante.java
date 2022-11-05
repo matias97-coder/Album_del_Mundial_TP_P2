@@ -9,6 +9,19 @@ public class Participante {
 	private String nombreUsuario;
 	private int dni;
 	
+	
+	@Override
+	public String toString() {
+		
+		StringBuilder st= new StringBuilder();
+		
+		st.append ("\n") .append (" DNI: ") .append (dni).append(" nombreUsuario:").append(nombreUsuario)
+		.append(" Album:").append(tipoAlbum()).append("\n");
+	
+		return st.toString();
+	}
+	
+	
 	public Participante(Album album, String nombreUsuario, int dni) {
 		this.album = album;
 		this.nombreUsuario = nombreUsuario;
@@ -21,8 +34,14 @@ public class Participante {
 		return false;
 	}
 
-	public void pegasFiguritasAlAlbum (){
-
+	/* De cada figurita se devuelve un string "$pais-$numeroJugador"
+	 * hay que usar iteradores aca
+	 * */
+	
+	public ArrayList<String> pegarFiguritasEnElAlbum (){
+		ArrayList<String> figuritasPegadas = new ArrayList<String> ();
+		
+		return figuritasPegadas;
 		}
 
 	public void agregarFiguritasASuColeccion (List<Figurita> figus){

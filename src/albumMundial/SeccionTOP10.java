@@ -22,7 +22,7 @@ public class SeccionTOP10 {
 	
 	// devuelve el nombre del jugador pegado en el la seccion
 	public String obtenerFiguritaEnSeccionTOP10(Figurita fig) {
-		return seccionTOP.get(fig.obtenerCodigoFigurita());
+		return seccionTOP.get(fig.obtenerPosicion());
 	}
 	
 	
@@ -38,4 +38,19 @@ public class SeccionTOP10 {
 		}
 	}
 	
+	/* Me devuelve una lista con los "numeros" de las figuritas 
+	 * que me faltan para completar la seccion
+	*/
+	
+	public ArrayList<Integer> figuritasTOP10QueFaltanPegar(){
+		ArrayList<Integer> figuritasFaltantes = new ArrayList<Integer>();
+		
+		for (int i=0;i<cargarSeccion().size();i++) {
+			if (seccionTOP.get(i).equals(null))
+				figuritasFaltantes.add(i);
+		}
+		
+		return figuritasFaltantes;
+	}
+
 }

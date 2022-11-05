@@ -7,34 +7,17 @@ public class AlbumExtendido extends Album {
 
 	private int figuritasTOPpegadas=0;
 	private int totalJugadoresTOP=20;
-	private HashMap<String, ArrayList<String>> seccionTop10;
-	private HashMap<String, SeccionTOP10> seccionTop102;
+	private HashMap<String, SeccionTOP10> seccionTop10;
 	private String [] mundialesTop10;
 
 	public AlbumExtendido(String premio, Integer codigoAlbum, String[] paisesClasificados, String [] mundialesTop10) {
 		super(premio, codigoAlbum, paisesClasificados);
 		this.mundialesTop10=mundialesTop10;
-		this.seccionTop10 = generarSeccionTop10();
-		this.seccionTop102=generarSeccionTop102();
-	}
-	
-	private ArrayList<String> generarListaTop10(){
-		ArrayList<String> listaTop10 = new ArrayList<>();
-		for (int i = 0; i < 2; i++) {
-			listaTop10.add(null);
-		}
-		return listaTop10;
+
+		this.seccionTop10=generarSeccionTop10();
 	}
 
-	private HashMap<String, ArrayList<String>> generarSeccionTop10(){
-		HashMap<String, ArrayList<String>> mapaSeccionTop10 = new HashMap<>();
-		for (String sedesMundiales : mundialesTop10) {
-			mapaSeccionTop10.put(sedesMundiales, generarListaTop10());
-		}
-		return mapaSeccionTop10;
-	}
-	
-	private HashMap<String, SeccionTOP10> generarSeccionTop102(){
+	private HashMap<String, SeccionTOP10> generarSeccionTop10(){
 		HashMap<String, SeccionTOP10> mapaSeccionTop10 = new HashMap<>();
 		for (String sedesMundiales : mundialesTop10) {
 			SeccionTOP10 sec10= new SeccionTOP10();
@@ -48,7 +31,7 @@ public class AlbumExtendido extends Album {
 	
 	
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
-		SeccionTOP10 secTOP= seccionTop102.get(fig.obtenerNombrePais());
+		SeccionTOP10 secTOP= seccionTop10.get(fig.obtenerNombrePais());
 		
 		if (! secTOP.tieneFiguritaPegadaSeccionTOP10(fig)) {
 			secTOP.pegarFiguritaEnLaSeccion(fig);
@@ -67,4 +50,5 @@ public class AlbumExtendido extends Album {
 	public boolean completoAlbum() {
 		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas() && figuritasTOPpegadas == totalJugadoresTOP  ;
 	}
+	
 }

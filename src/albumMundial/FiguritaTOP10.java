@@ -5,20 +5,22 @@ public class FiguritaTOP10 extends Figurita{
 	private String anio;
 	private String tipoBalon;
 
-	public FiguritaTOP10(int codigoFigurita, int valorBase, Integer rankingPais, String nombrePais,
+	@Override
+	public String toString() {
+		
+		StringBuilder st= new StringBuilder();
+		
+		st.append ("\n") .append (" anio: ") .append (anio).append(" premio:").append(tipoBalon).append("\n");
+	
+		return st.toString();
+	}
+	
+	public FiguritaTOP10(int codigoFigurita, int posicion,int valorBase, Integer rankingPais, String nombrePais,
 			String nombreJugador, String anio, String tipoBalon) {
-		super(codigoFigurita, valorBase, rankingPais, nombrePais, nombreJugador);
+		super(codigoFigurita, posicion,valorBase, rankingPais, nombrePais, nombreJugador);
 		this.anio = anio;
 		this.tipoBalon = tipoBalon;
 	}
-
-
-
-	public int calcularValorFinal(int rankingPais) {
-		return 0;
-	}
-
-
 
 	public String obtenerAnio() {
 		return anio;

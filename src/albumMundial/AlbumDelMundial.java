@@ -121,20 +121,12 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public List<String> pegarFiguritas(int dni){
-		LinkedList<String> figuritasNoPegadas = new LinkedList();
+		LinkedList<String> figuritasAsociadas = new LinkedList();
 		
-		Participante part= participantes.get(dni);
-		
-		for (Figurita fig:part.obtenerColeccionDeFiguritas()) {
-			if (fig.sePegoLaFigurita()==false) {
-				//pega la figurita en el album
-				figuritasNoPegadas.add("algo");
-			}
-			
-		}
+
 		
 	
-		return figuritasNoPegadas;
+		return figuritasAsociadas;
 	}
 	/**
 	* Verifica si el participante identificado por dni ya completó el album.
@@ -241,18 +233,20 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public String listadoDeGanadores() {
-		String  listado="";
+		StringBuilder listado= new StringBuilder();
+		
 		for(Integer key : participantes.keySet()) { // recorro todas las keys del diccionario participante
 			Participante part = participantes.get(key);
 			Album alb=part.obtenerAlbum();
 			
 			if (alb.completoAlbum()) {
-				listado+="($dni " +String.valueOf(part.obtenerDNI())+") $nombre: "
-						+part.obtenerNombreUsuario()+ " $premio "+alb.obtenerPremio()+"\n";
+	
+				listado.append("$dni: ").append(part.obtenerDNI()).append("$nombre: ").append(part.obtenerNombreUsuario())
+				.append("$premio: ").append(alb.obtenerPremio()).append ("\n");
 			}
 			
 		}
-		return listado;
+		return listado.toString();
 	}
 	/**
 	* Devuelve una lista con todos los participantes que llenaron el pais

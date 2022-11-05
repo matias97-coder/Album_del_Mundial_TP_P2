@@ -8,11 +8,14 @@ import java.util.Random;
 
 
 public class Fabrica {
-	/*La clase Fábrica con los métodos para facilitar la implementación. 
+	
+/*La clase Fábrica con los métodos para facilitar la implementación. 
 En esta clase les damos ya implementados los métodos que permiten generar 
 el valor base de las figuritas, los premios, los países y sus ranking,
  y los datos de los mundiales. También se brindan los 32 países clasificados.*/
-
+	
+	private int totFiguritasTradicionales=384;
+	private int totFiguritasTOP=20;
 	private Random random;
 	private String[] premiosInstantaneos;
 	private String[] paisesParticipantes;
@@ -20,7 +23,14 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	private String[] listadoDeMundialesTop10;
 	private Map<String, String[]> balonYPaisPorMundialTop10;
 	private Map<String, Integer> ranking;
-
+	private ArrayList<Figurita> figuritasTradicionales;
+	private ArrayList<Figurita> figuritasTOP;
+	
+	// Van a ser valores unicos que se van modificando cuando crea algun Album
+	private static int codigosAlbum=0; //
+	private static int codigosPromocionales=0;
+	private static int numerosSorteos=0;
+	
 	public Fabrica() {
 		random = new Random(System.currentTimeMillis());
 		lugaresPorPais = 12;
@@ -29,6 +39,8 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		balonYPaisPorMundialTop10 = generarPaisesPorMundial();
 		ranking = generarRanking();
 		premiosInstantaneos = generarPremiosParaSorteoInstantaneo();
+		figuritasTradicionales= generarFiguritasTradicionales();
+		figuritasTOP = generarFiguritasTOP10();
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -70,17 +82,9 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		ArrayList<Figurita> sobre= new ArrayList<Figurita>();
 		
 		for (int i=0;i<cantFigus;i++) {
-		
-			int posPais = random.nextInt(32); // aleatorio entre 0 y 31 asociado a un paisParticipante
-			int codig = random.nextInt(lugaresPorPais); // nro de jugador entre 0 y 11, asociado a un codigo figura
-			
-			String paisPart= paisesParticipantes[posPais];
-			int valorBase=  calcularValorBase(paisPart, codig);
-			int rankingPais = ranking.get(paisPart);
-			
-			Figurita figTraicional= new FiguritaTradicional(codig , valorBase, rankingPais, paisPart, "Jugador "+Integer.toString(codig));
-		
-			sobre.add(figTraicional);
+			int num=random.nextInt(totFiguritasTradicionales); // numero aleatorio entre 0 y 383
+			Figurita figTrad= figuritasTradicionales.get(num);
+			sobre.add(figTrad);
 		}
 		return sobre;
 	
@@ -90,24 +94,9 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		ArrayList<Figurita> sobreTOP10= new ArrayList<Figurita>();
 
 		for (int i=0;i<cantFigus;i++) {
-			Figurita figTOP;
-			
-			int sedesMundiales = random.nextInt(10); // aleatorio entre 0 y 9 asociado a una sedeMundial
-			int premioBalon = random.nextInt(2); // nro de jugador entre 0 y 1, asociado a una 1er y 2do puesto
-			String sedeMundialTOP10= listadoDeMundialesTop10[sedesMundiales];
-			String puesto []=balonYPaisPorMundialTop10.get(sedeMundialTOP10); // Hay 2 posiciones, con el nombre del pais ganador
-			String anio= sedeMundialTOP10.substring(sedeMundialTOP10.length()-3, sedeMundialTOP10.length());
-			int valorBase=  calcularValorBase(puesto[premioBalon], premioBalon);
-			int rankingPais= ranking.get(puesto[premioBalon]);
-			
-			if (premioBalon==0) {
-				 figTOP = new FiguritaTOP10(premioBalon, valorBase, rankingPais,sedeMundialTOP10, anio, "oro",puesto[0]);
-			}
-			else {
-				 figTOP = new FiguritaTOP10(premioBalon, valorBase, rankingPais,sedeMundialTOP10, anio, "plata", puesto[1]);
-			}
-			
-			
+
+			int num=random.nextInt(totFiguritasTOP); // numero aleatorio entre 0 y 19
+			Figurita figTOP=figuritasTOP.get(num);
 			sobreTOP10.add(figTOP);
 		}
 		
@@ -383,5 +372,55 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		ret.put("San Marino",211);
 		return ret;
 	}
+	
+	
+   private ArrayList<Figurita> generarFiguritasTradicionales(){
+	   //son 384 figuritas en total
+	   ArrayList<Figurita> figuritasTradicionales = new ArrayList<Figurita> ();
+	   int codigosFiguritas=0;
+	   for (String paisPart: paisesParticipantes ) {
+		   Integer rankingPais = ranking.get(paisPart);
+		   for (int pos=0;pos<lugaresPorPais;pos++) {
+			   codigosFiguritas++;
+			   int valorBase=  calcularValorBase(paisPart, pos);
+			   Figurita figTradicional= new FiguritaTradicional (codigosFiguritas, pos, valorBase, rankingPais, paisPart, "Jugador "+Integer.toString(pos));
+			   figuritasTradicionales.add(figTradicional);
+		   }
+		   
+	   }
+	   return figuritasTradicionales;
+	   
+   }
+   
+  private ArrayList<Figurita> generarFiguritasTOP10(){
+	   ArrayList<Figurita> figuritasTOP = new ArrayList<Figurita> ();
+	   int codigo=totFiguritasTradicionales; // los cidigos de las TOP10 empiezan desde 385
+	   
+	   for (String sedeMundial:listadoDeMundialesTop10) {
+		   
+		   for (int i=0;i<2;i++) {
+			   Figurita figTOP;
+			   codigo++;   
+			   
+			   String puesto []=balonYPaisPorMundialTop10.get(sedeMundial); // Hay 2 posiciones, con el nombre del pais ganador
+			   int valorBase=  calcularValorBase(puesto[i], i);
+			   Integer rankingPais = ranking.get(puesto[i]);
+			   String anio= sedeMundial.substring(sedeMundial.length()-3, sedeMundial.length());
+			   
+			   if (i==0) {
+				   figTOP = new FiguritaTOP10(codigo, 0 ,valorBase, rankingPais, sedeMundial,puesto[0], anio, "oro");
+				   }
+			   
+			   else {
+				   figTOP = new FiguritaTOP10(codigo, 1 ,valorBase, rankingPais, sedeMundial,puesto[1], anio, "plata");
+			   	}
+			   
+			   figuritasTOP.add(figTOP);
+			   
+		   }
+	   }  
+	  return figuritasTOP;
+  }
+   
 
 }

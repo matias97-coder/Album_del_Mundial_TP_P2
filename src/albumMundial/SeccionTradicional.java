@@ -1,10 +1,11 @@
 package albumMundial;
 
+import java.awt.List;
 import java.util.ArrayList;
 
 public class SeccionTradicional {
 
-	private int figuritaPegadas=0;
+	private int figuritaPegadas=100;
 	private ArrayList<String> seccion;
 	
 	public SeccionTradicional() {
@@ -30,7 +31,7 @@ public class SeccionTradicional {
 	
 	// devuelve el nombre del jugador pegado en el la seccion
 	public String obtenerFiguritaEnSeccion(Figurita fig) {
-		return seccion.get(fig.obtenerCodigoFigurita()); // devuelvo en nombre accediendo a su posicion en el Array
+		return seccion.get(fig.obtenerPosicion()); // devuelvo en nombre accediendo a su posicion en el Array
 	}
 	
 
@@ -48,9 +49,24 @@ public class SeccionTradicional {
 			 * index= codFig 0 a 11 , String= nombre Jugador
 			 * seccion.add(index, String)
 			*/
-			seccion.add(fig.obtenerCodigoFigurita(), fig.obtenerNombreJugador()); 
+			seccion.add(fig.obtenerPosicion(), fig.obtenerNombreJugador()); 
 			figuritaPegadas++; // este contador solo llega hasta 12
 		}
+	}
+	
+	
+	/* Me devuelve una lista con los "numeros" de las figuritas 
+	 * que me faltan para completar la seccion
+	*/
+	public ArrayList<Integer> figuritasTradicionalesQueFaltanPegar(){
+		ArrayList<Integer> figuritasFaltantes = new ArrayList<Integer>();
+		
+		for (int i=0;i<cargarSeccion().size();i++) {
+			if (seccion.get(i).equals(null))
+				figuritasFaltantes.add(i);
+		}
+		
+		return figuritasFaltantes;
 	}
 	
 

@@ -16,6 +16,16 @@ public abstract class Album {
 	private HashMap <String, SeccionTradicional> seccionesJugadores;
 	private int totalJugadores= paisesParticipantes*cantJugadoresEquipo; 
 	
+	@Override
+	public String toString() {
+		
+		StringBuilder st= new StringBuilder();
+		
+		st.append ("\n") .append (" codigoAlbum: ") .append (codigoAlbum) .append (" premio: ").append(premio).append ("\n");
+	
+		return st.toString();
+	}
+	
 	public Album(String premio, Integer codigoAlbum,  String [] paisesClasificados) {
 		this.premio = premio;
 		this.codigoAlbum = codigoAlbum;
@@ -82,7 +92,7 @@ public abstract class Album {
 		return mapaSeccionJugadores;
 	}
 	
-	
+
 
 	public abstract boolean tieneCodigoPromocional ();
 	public abstract boolean completoAlbum();

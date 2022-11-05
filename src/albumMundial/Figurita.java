@@ -1,7 +1,7 @@
 package albumMundial;
 
-public class Figurita {
-	
+public abstract class Figurita {
+	private int posicion;
 	private int codigoFigurita;
 	private int valorBase;
 	private Integer rankingPais;
@@ -11,8 +11,22 @@ public class Figurita {
 	private boolean estaPegada=false;
 	public Figurita () {}
 	
-	public Figurita(int codigoFigurita, int valorBase, Integer rankingPais, String nombrePais, String nombreJugador ) {
+	@Override
+	public String toString() {
+		
+		StringBuilder st= new StringBuilder();
+		
+		st.append ("\n") .append (" codigoFigurita: ") .append (codigoFigurita).append ("ValorBase: ").append(valorBase)
+		.append(" nombrePais: ").append(nombrePais).append(" rankingPais: ").append(rankingPais).append(" nombreJugador:")
+		.append(nombreJugador).append("\n");
+	
+		return st.toString();
+	}
+	
+	
+	public Figurita(int codigoFigurita, int posicion, int valorBase, Integer rankingPais, String nombrePais, String nombreJugador ) {
 		this.codigoFigurita = codigoFigurita;
+		this.posicion= posicion;
 		this.valorBase = valorBase;
 		this.rankingPais=rankingPais;
 		this.nombrePais=nombrePais;
@@ -47,10 +61,12 @@ public class Figurita {
 		return codigoFigurita;
 	}
 	
-
-	public int calcularValorFinal() {
-		return valorBase+rankingPais;
+	public int obtenerPosicion() {
+		return posicion;
 	}
+
+	public abstract int calcularValorFinal();
+
 	
 	
 }
