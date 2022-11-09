@@ -8,6 +8,7 @@ public class Participante {
 	private ArrayList<Figurita> coleccionDeFiguritas;
 	private String nombreUsuario;
 	private int dni;
+	private String premio=null;
 	
 	
 	@Override
@@ -27,6 +28,14 @@ public class Participante {
 		this.nombreUsuario = nombreUsuario;
 		this.dni = dni;
 		coleccionDeFiguritas= new ArrayList<Figurita>();
+	}
+	
+	public void cargarPremio(String premio) {
+		this.premio=premio;
+	}
+	
+	public String premioObtenido () {
+		return premio;
 	}
 	
 	public boolean poseeAlbumCompleto (){

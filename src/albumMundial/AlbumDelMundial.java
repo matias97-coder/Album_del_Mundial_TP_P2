@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	private Fabrica fabrica;
@@ -221,7 +220,19 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public String darPremio(int dni) {
-		return null;
+		
+		if(!participantes.containsKey(dni)) 
+			throw new RuntimeException("Participante no esta registrado");
+		
+		Participante part= participantes.get(dni);
+		Album album = part.obtenerAlbum();
+		
+		if (!album.completoAlbum())
+			throw new RuntimeException("El participante "+part.obtenerNombreUsuario()+" no tiene el album Completo");
+		
+		part.cargarPremio(album.obtenerPremio());
+		
+		return part.premioObtenido();
 	}
 
 	/**
