@@ -36,7 +36,7 @@ public class SeccionTradicional {
 	
 
 	public boolean tieneFiguritaPegadaSeccion (Figurita fig) {
-		return ! obtenerFiguritaEnSeccion(fig).equals(null);
+		return ! (obtenerFiguritaEnSeccion(fig)==null);
 	}
 	
 
