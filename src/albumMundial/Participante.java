@@ -92,5 +92,25 @@ public class Participante {
 		return null;
 	}
 	
+	public int obtenerUnCodigoFiguritaRepetida() {
+		for(Figurita figurita : coleccionDeFiguritas) {
+			return figurita.obtenerCodigoFigurita();
+		}
+		return -1;
+	}
+	//Cuando se compra un sobre, este se guarda en la coleccion de figuritas.
+	//En la coleccion puede tener una figurita repetida y no haberse pegado nunca en el album. Si un sobre le toca dos figuritas iguales?
+	//debemos verificar que en la lista de figuritas pendientes por pegar, no este la misma y le insertemos dos veces
+	public ArrayList<Figurita> figuritasPendientesPorPegar() {
+		ArrayList<Figurita> figuritasPendientesPorPegar = new ArrayList<>();
+		for(int i = 0; i < coleccionDeFiguritas.size(); i++) {
+			if(!album.tienePegadaFigurita(coleccionDeFiguritas.get(i)) 
+					&& !figuritasPendientesPorPegar.contains(coleccionDeFiguritas.get(i))) {
+				figuritasPendientesPorPegar.add(coleccionDeFiguritas.remove(i));
+			}
+		}
+		return figuritasPendientesPorPegar;
+	}
+	
 	
 }

@@ -103,7 +103,9 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		return sobreTOP10;
 	}
 
-
+	public String obtenerUnPremioInstantaneo() {
+		return premiosInstantaneos[random.nextInt(3)];
+	}
 
 	///////////////////////////////////////////////////////
 	///////////// METODOS FACILITADOS POR LA CATEDRA //////

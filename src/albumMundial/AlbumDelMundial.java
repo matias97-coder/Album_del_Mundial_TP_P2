@@ -120,6 +120,10 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public List<String> pegarFiguritas(int dni){
+		if(!participantes.containsKey(dni)) 
+			throw new RuntimeException("Participante no esta registrado");
+		Participante participante = participantes.get(dni);
+		Album album = participante.obtenerAlbum();
 		LinkedList<String> figuritasAsociadas = new LinkedList();
 		
 
@@ -155,7 +159,19 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public String aplicarSorteoInstantaneo(int dni) {
-		return null;
+		if(participantes.containsKey(dni))
+			throw new RuntimeException("Participante no está registrado");
+		Album album = participantes.get(dni).obtenerAlbum();
+		if(album instanceof AlbumTradicional) {
+			if(((AlbumTradicional) album).obtenerCodigoAlbum() > 0) {
+				((AlbumTradicional) album).actualizarNumeroSorteo(-1);
+				return fabrica.obtenerUnPremioInstantaneo();
+			}else {
+				throw new RuntimeException("Sorteo instantaneo ya fue realizado previamente");
+			}	
+		}else {
+			throw new RuntimeException("No es un album tradicional");
+		}
 	}
 	/**
 	* Busca si el participante tiene alguna figurita repetida y devuelve
@@ -167,8 +183,9 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public int buscarFiguritaRepetida(int dni) {
-		
-		return 0;
+		if(!participantes.containsKey(dni))
+			throw new RuntimeException("Participante no registrado");
+		return participantes.get(dni).obtenerUnCodigoFiguritaRepetida();
 	}
 	/**
 	* Dado el dni de un participante A y el codigo de una figurita,

@@ -39,4 +39,12 @@ public class AlbumTradicional extends Album{
 		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas();
 	}
 	
+	public int obtenerNumeroSorteo() {
+		return numeroSorteo;
+	}
+	
+	public void actualizarNumeroSorteo(int valor) {
+		this.numeroSorteo = valor;
+	}
+	
 }
