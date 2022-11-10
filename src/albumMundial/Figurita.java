@@ -64,6 +64,22 @@ public abstract class Figurita {
 	public int obtenerPosicion() {
 		return posicion;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Figurita)) {
+			return false;
+		}
+	
+		Figurita otraFig = (Figurita) obj;
+
+		return posicion == otraFig.posicion && nombrePais.equals(otraFig.obtenerNombrePais()) 
+				&& codigoFigurita>=0 && otraFig.obtenerCodigoFigurita()>=0
+				&& (getClass().equals(otraFig.getClass()) && otraFig.calcularValorFinal() <=calcularValorFinal() );
+	}
 
 	public abstract int calcularValorFinal();
 

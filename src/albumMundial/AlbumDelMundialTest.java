@@ -11,7 +11,6 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AlbumDelMundialTest {
-	
 	private static final String TIPO_TRADICIONAL = "Tradicional";
 	private static final String TIPO_EXTENDIDO = "Extendido";
 	private static final String TIPO_WEB = "Web";
@@ -97,6 +96,7 @@ public class AlbumDelMundialTest {
 	public void t10_intercambiarFiguritasConAlbumVacio_DevuelveTrue() {
 		// Para este caso se registraron 2 tradicionales 
 		// y ambos compraron figuritas.
+		
 		assertTrue(sistema.intercambiarUnaFiguritaRepetida(dniConAlbumTradicional));
 	}
 	
@@ -160,6 +160,5 @@ public class AlbumDelMundialTest {
 	public void t20_consultarParticipantesQueCompletaronArgentinaConJuegoRecienEmpezado_DevuelveListaVacia() {
 		List<String> completaronPais=sistema.participantesQueCompletaronElPais("Argentina");
 		assertEquals(0, completaronPais.size());
-	
 	}
 }

@@ -4,11 +4,17 @@ import java.util.ArrayList;
 
 public class SeccionTradicional {
 
-	private int figuritaPegadas=100;
+	private int figuritaPegadas=0;
+	private String pais;
 	private ArrayList<String> seccion;
 	
-	public SeccionTradicional() {
+	public SeccionTradicional(String pais) {
+		this.pais=pais;
 		seccion= cargarSeccion();
+	}
+	
+	public String obtenerPaisSeccion() {
+		return pais;
 	}
 	
 	public int cantFigusPegadasSeccion() {
@@ -27,15 +33,18 @@ public class SeccionTradicional {
 	public boolean seccionCompleta() {
 		return figuritaPegadas==12;
 	}
-	
+	/*
 	// devuelve el nombre del jugador pegado en el la seccion
 	public String obtenerFiguritaEnSeccion(Figurita fig) {
-		return seccion.get(fig.obtenerPosicion()); // devuelvo en nombre accediendo a su posicion en el Array
+		if (seccion.get(fig.obtenerPosicion())!=null)
+			return fig.obtenerNombreJugador();
+		return null; // devuelvo en nombre accediendo a su posicion en el Array
 	}
-	
-
+	*/
+	// true= hay fig pegada
+	// false= es que la seccion esta en null, 
 	public boolean tieneFiguritaPegadaSeccion (Figurita fig) {
-		return ! (obtenerFiguritaEnSeccion(fig)==null);
+		return  seccion.get(fig.obtenerPosicion()) != null;
 	}
 	
 
@@ -43,7 +52,7 @@ public class SeccionTradicional {
 	public void pegarFiguritaEnLaSeccion(Figurita fig) {
 		
 		//Si la salida es "null" devuelve true, por la tanto puede pegar una figurta
-		if (!tieneFiguritaPegadaSeccion(fig)) {	
+		if (tieneFiguritaPegadaSeccion(fig) == false) {	
 			/*
 			 * index= codFig 0 a 11 , String= nombre Jugador
 			 * seccion.add(index, String)
@@ -68,6 +77,6 @@ public class SeccionTradicional {
 		return figuritasFaltantes;
 	}
 	
-
+	
 
 }

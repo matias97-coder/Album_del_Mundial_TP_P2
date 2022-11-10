@@ -42,5 +42,22 @@ public class FiguritaTOP10 extends Figurita{
 	}
 	
 	
+	@Override
+	public boolean equals(Object obj) {
+
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof FiguritaTOP10)) {
+			return false;
+		}
+
+		FiguritaTOP10 otraFig = (FiguritaTOP10) obj;
+
+		return tipoBalon.equals(otraFig.obtenerTipoBalon()) && obtenerNombrePais().equals(otraFig.obtenerNombrePais()) 
+				 && otraFig.calcularValorFinal() <=calcularValorFinal() && getClass().equals(otraFig.getClass());
+
+	}
+	
 	
 }

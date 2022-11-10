@@ -156,20 +156,25 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public String aplicarSorteoInstantaneo(int dni) {
-		if(participantes.containsKey(dni))
+		
+		if(! (participantes.containsKey(dni)) )
 			throw new RuntimeException("Participante no está registrado");
+		
 		Album album = participantes.get(dni).obtenerAlbum();
-		if(album instanceof AlbumTradicional) {
-			if(((AlbumTradicional) album).obtenerCodigoAlbum() > 0) {
-				((AlbumTradicional) album).actualizarNumeroSorteo(-1);
-				return fabrica.obtenerUnPremioInstantaneo();
-			}else {
-				throw new RuntimeException("Sorteo instantaneo ya fue realizado previamente");
-			}	
-		}else {
-			throw new RuntimeException("No es un album tradicional");
-		}
+		Participante part = participantes.get(dni);
+		
+		if( ! (album instanceof AlbumTradicional))
+			throw new RuntimeException("El album "+ part.tipoAlbum()+" no posee nro de sorteo");
+		
+		if (((AlbumTradicional) album).obtenerCodigoAlbum() == -1)
+			throw new RuntimeException("El codigo ya fue sorteado");
+		
+		
+		((AlbumTradicional) album).actualizarNumeroSorteo(-1); // seteamos el valor a -1, pasar a ser utilizado
+				
+	 return fabrica.obtenerUnPremioInstantaneo();
 	}
+	
 	/**
 	* Busca si el participante tiene alguna figurita repetida y devuelve
 	* el codigo de la primera que encuentre.
@@ -195,32 +200,52 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	* Si el participante no está registrado o no es dueño de la figurita a
 	* cambiar, se debe lanzar una excepción.
 	*/
+
+	
 	@Override
 	public boolean intercambiar(int dni, int codFigurita) {
+		
+		if(codFigurita==-1)
+			return false;
+		
 		ArrayList<Figurita> figuritasMenorIgualValor = new ArrayList<Figurita>();
+		
 		if(!participantes.containsKey(dni))
 			throw new RuntimeException("Participante no registrado");
-		Participante participanteA = participantes.get(dni);
-		if(participanteA.tieneFiguritaEnColeccion(codFigurita) == null)
-			throw new RuntimeException("No posee la figura en su coleccion");
 		
-		Album albumA = participanteA.obtenerAlbum();
+		Participante participante_A = participantes.get(dni);
+
+
+		// Figurita que da el participante A
+		Album album_A = participante_A.obtenerAlbum();
+		Figurita figuritaADar = participante_A.tieneFiguritaEnColeccion(codFigurita);
+	
 		Iterator<Map.Entry<Integer,Participante>> it = participantes.entrySet().iterator();
+		
 		while(it.hasNext() ) {
 			Map.Entry<Integer,Participante> participanteABuscar =it.next();
-			if(((Participante)participanteABuscar).obtenerAlbum().getClass().equals(albumA)) {
-				Figurita figuritaADar = participanteA.tieneFiguritaEnColeccion(codFigurita);
-				figuritasMenorIgualValor = ((Participante)participanteABuscar).obtenerFiguritasIgualMenorValor(figuritaADar.obtenerValorBase());
-				Figurita figuritaAIntercambiar = participanteA.AlgunaFiguritaSinPegarEnAlbum(figuritasMenorIgualValor);
-				if(figuritaAIntercambiar != null) {
-					participanteA.intercambiarFigurita(figuritaADar, figuritaAIntercambiar);
-					((Participante)participanteABuscar).intercambiarFigurita(figuritaADar, figuritaADar);
+			
+			Integer dni_B = (Integer)participanteABuscar.getKey(); // clave
+		    Participante participante_B = (Participante)participanteABuscar.getValue(); //valor
+		    
+			if(participante_B.obtenerAlbum().getClass().equals(album_A.getClass()) && dni != dni_B 
+					&& participante_B.obtenerAlbum().cantTotalDeFiguritasPegadas() !=0 ) {
+				
+				figuritasMenorIgualValor = participante_B.obtenerFiguritasIgualMenorValor(figuritaADar);
+				// Figurita que da el participante B
+				Figurita figuritaAIntercambiar = participante_A.AlgunaFiguritaSinPegarEnAlbum(figuritasMenorIgualValor);
+				
+				if(figuritaAIntercambiar!=null) {
+		
+					participante_A.intercambiarFigurita(figuritaADar, figuritaAIntercambiar);
+					participante_B.intercambiarFigurita(figuritaAIntercambiar, figuritaADar);
 					return true;
 				}
 			}
 		}
 		return false;
 	}
+
 	/**
 	* Dado el dni de un participante, busca una figurita repetida e intenta
 	* intercambiarla
@@ -233,7 +258,17 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	public boolean intercambiarUnaFiguritaRepetida(int dni) {
 		if(!participantes.containsKey(dni))
 			throw new RuntimeException("Participante no registrado");
-		return intercambiar(dni, participantes.get(dni).obtenerAlgunaFiguritaDeLaColeccion().obtenerCodigoFigurita());
+		Participante part= participantes.get(dni);
+		
+		if (part.obtenerAlbum().cantTotalDeFiguritasPegadas() == 0) 
+			return true;
+		
+		if (part.estaVacioColeccion())
+			return false;
+		
+		int codFigRep= buscarFiguritaRepetida(dni);
+		
+		return intercambiar(dni, codFigRep);
 	}
 	/**
 	* Dado el dni de un participante, se devuelve el nombre del mismo.

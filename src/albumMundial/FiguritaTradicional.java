@@ -9,7 +9,7 @@ public class FiguritaTradicional extends Figurita{
 	
 	@Override
 	public int calcularValorFinal() {
-		return super.obtenerValorBase()+super.obtenerRankingPais();
+		return obtenerValorBase()+obtenerRankingPais();
 	}
 	
 

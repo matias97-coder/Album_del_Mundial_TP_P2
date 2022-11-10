@@ -19,7 +19,7 @@ public class AlbumExtendido extends Album {
 	private HashMap<String, SeccionTOP10> generarSeccionTop10(){
 		HashMap<String, SeccionTOP10> mapaSeccionTop10 = new HashMap<>();
 		for (String sedesMundiales : mundialesTop10) {
-			SeccionTOP10 sec10= new SeccionTOP10();
+			SeccionTOP10 sec10= new SeccionTOP10(sedesMundiales);
 			mapaSeccionTop10.put(sedesMundiales, sec10);
 		}
 		return mapaSeccionTop10;
@@ -32,8 +32,8 @@ public class AlbumExtendido extends Album {
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
 		SeccionTOP10 secTOP= seccionTop10.get(fig.obtenerNombrePais());
 		
-		if (! secTOP.tieneFiguritaPegadaSeccionTOP10(fig)) {
-			secTOP.pegarFiguritaEnLaSeccion(fig);
+		if (secTOP.tieneFiguritaPegadaSeccionTOP10(fig) == false) {
+			secTOP.pegarFiguritaEnLaSeccionTOP(fig);
 			figuritasTOPpegadas++;
 		}
 	}
@@ -47,7 +47,7 @@ public class AlbumExtendido extends Album {
 	
 	@Override
 	public boolean completoAlbum() {
-		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas() && figuritasTOPpegadas == totalJugadoresTOP  ;
+		return cantJugadoresTotales()==cantTotalDeFiguritasPegadas() && figuritasTOPpegadas == totalJugadoresTOP  ;
 	}
 	
 }

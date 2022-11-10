@@ -60,15 +60,24 @@ public abstract class Album {
 	public String obtenerNumeroDeCodigoAlbum() {
 		return null;
 	}
+	
+	
+	/* Para poder pegar la Figurita la funcion 
+	 * tienePegadaFigurita(fig) tiene que llegar en null
+	 * si es null entonces puedo pegar la figurita
+	 */
 	public void pegarFiguraEnElAlbum(Figurita fig) {
-		if (! tienePegadaFigurita(fig)) {
+
+		if ( tienePegadaFigurita(fig) == false) {
 			seccionesJugadores.get(fig.obtenerNombrePais()).pegarFiguritaEnLaSeccion(fig);
 			figuritasTotales++;
 		}
 	}
-	
+
+	// quiero pegar la figurita, si la seccion esta en null
 	public boolean tienePegadaFigurita(Figurita fig)
 	{
+		// get. (pais,seccionTradicional)
 		return seccionesJugadores.get(fig.obtenerNombrePais()).tieneFiguritaPegadaSeccion(fig);
 	}
 
@@ -85,7 +94,7 @@ public abstract class Album {
 		HashMap<String, SeccionTradicional> mapaSeccionJugadores = new HashMap<String, SeccionTradicional>();
 	
 		for (String pais: paisesClasificados) {
-			SeccionTradicional seccion= new SeccionTradicional();
+			SeccionTradicional seccion= new SeccionTradicional(pais);
 			mapaSeccionJugadores.put(pais, seccion);
 		
 		}

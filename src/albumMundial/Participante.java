@@ -1,6 +1,5 @@
 package albumMundial;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -62,6 +61,10 @@ public class Participante {
 
 		return false;
 	}
+	
+	public boolean estaVacioColeccion() {
+		return coleccionDeFiguritas.isEmpty();
+	}
 
 	public void agregarFiguritasASuColeccion (List<Figurita> figus){
 		coleccionDeFiguritas.addAll(figus);
@@ -94,14 +97,16 @@ public class Participante {
 		while(it.hasNext() ) {
 			Figurita fig =it.next(); 
 			if(fig instanceof FiguritaTradicional) {
-				if (! album.tienePegadaFigurita(fig)) {
-					album.pegarFiguraEnElAlbum(fig);
-					figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
-					it.remove();
-				}
+				
+				// en .pegarFiguraEnElAlbum(fig) ya vilida si se puede pegar o no la fig
+				album.pegarFiguraEnElAlbum(fig);
+				figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
+				it.remove();
+				
 			}else {
-				if(! ((AlbumExtendido)album).tienePegadaFigurita(fig)) {
-					((AlbumExtendido)album).pegarFiguraEnElAlbum(fig);
+				if(fig instanceof FiguritaTOP10) {
+					// en .pegarFiguritaEnLaSeccionTOP(fig) ya vilida si se puede pegar o no la figTOP
+					((AlbumExtendido)album).pegarFiguritaEnLaSeccionTOP(fig);;
 					figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
 					it.remove();
 				}
@@ -111,11 +116,15 @@ public class Participante {
 		return figuritasPegadas;
 	}
 	
-	public ArrayList<Figurita> obtenerFiguritasIgualMenorValor(int valorBase){
+	/* Devuelve una lista con las figuritas que no pegue de mi coleccion,
+	 *  del mismo tipo que la que recibo por
+	 parametro
+	 */
+	public ArrayList<Figurita> obtenerFiguritasIgualMenorValor(Figurita otraFig){
 		ArrayList<Figurita> figuritasAintercambiar = new ArrayList<Figurita>();
 		
 		for (Figurita figurita : coleccionDeFiguritas) {
-			if(figurita.obtenerValorBase() <= valorBase && !figuritasAintercambiar.contains(figurita)) {
+			if(figurita.equals(otraFig)) {
 				figuritasAintercambiar.add(figurita);
 			}
 		}
@@ -124,6 +133,10 @@ public class Participante {
 	
 	public Figurita tieneFiguritaEnColeccion(int codFigurita) {
 		int i = 0;
+		
+		if (codFigurita==-1)
+			return null;
+		
 		while (i < coleccionDeFiguritas.size()) {
 			if(coleccionDeFiguritas.get(i).obtenerCodigoFigurita() == codFigurita) {
 				return coleccionDeFiguritas.get(i);
@@ -133,16 +146,22 @@ public class Participante {
 		return null;
 	}
 	
-	public Figurita AlgunaFiguritaSinPegarEnAlbum(ArrayList<Figurita> figuritas) {
+	public Figurita AlgunaFiguritaSinPegarEnAlbum(ArrayList<Figurita> figuritas_part_B) {
 		int i = 0;
-		while(i < figuritas.size()) {
-			if(!album.tienePegadaFigurita(figuritas.get(i))) {
-				return figuritas.get(i);
+		while(i < figuritas_part_B.size()) {
+			
+			/* Si en el album que tengo, la fig no esta ocupada es
+			 * decir, esta en false = null, entonces devuelve esa fig
+			 * que no tiene pegada del participante b
+			 */
+			if(album.tienePegadaFigurita(figuritas_part_B.get(i)) == false) {
+				return figuritas_part_B.get(i);
 			}
+			i++;
 		}
 		return null;
 	}
-	
+
 	public void intercambiarFigurita(Figurita figuritaADar, Figurita figuritaARecibir){
 		coleccionDeFiguritas.add(figuritaARecibir);
 		coleccionDeFiguritas.remove(figuritaADar);

@@ -3,13 +3,18 @@ package albumMundial;
 import java.util.ArrayList;
 
 public class SeccionTOP10 {
-
+	private String sede;
 	private ArrayList<String> seccionTOP;
 	
-	public SeccionTOP10() {
+	public SeccionTOP10(String sede) {
+		this.sede=sede;
 		seccionTOP= cargarSeccion();
 	}
 
+	public String obtenerSeccionSedeMundial() {
+		return sede;
+	}
+	
 	
 	private ArrayList<String> cargarSeccion() {
 		ArrayList<String> seccionesTOP10 = new ArrayList<String> ();
@@ -20,20 +25,24 @@ public class SeccionTOP10 {
 		return seccionesTOP10;
 	}
 	
+	/*
 	// devuelve el nombre del jugador pegado en el la seccion
 	public String obtenerFiguritaEnSeccionTOP10(Figurita fig) {
 		return seccionTOP.get(fig.obtenerPosicion());
 	}
+	*/
 	
 	
+	// true= hay fig pegada
+	// false= es que la seccion esta en null, 
 	public boolean tieneFiguritaPegadaSeccionTOP10 (Figurita fig) {
-		return ! obtenerFiguritaEnSeccionTOP10(fig).equals(null);
+		return seccionTOP.get(fig.obtenerPosicion())!= null;
 	}
 	
 
 	
-	public void pegarFiguritaEnLaSeccion(Figurita fig) {
-		if (! tieneFiguritaPegadaSeccionTOP10(fig) && fig instanceof FiguritaTOP10) {
+	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
+		if ( tieneFiguritaPegadaSeccionTOP10(fig) == false) {
 			seccionTOP.add(fig.obtenerCodigoFigurita(), fig.obtenerNombreJugador()); // seccion.add(index, String)
 		}
 	}
