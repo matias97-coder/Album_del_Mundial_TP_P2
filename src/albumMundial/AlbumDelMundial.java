@@ -1,8 +1,11 @@
 package albumMundial;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class AlbumDelMundial implements IAlbumDelMundial {
 	
@@ -123,13 +126,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		if(!participantes.containsKey(dni)) 
 			throw new RuntimeException("Participante no esta registrado");
 		Participante participante = participantes.get(dni);
-		Album album = participante.obtenerAlbum();
-		LinkedList<String> figuritasAsociadas = new LinkedList();
-		
-
-		
-	
-		return figuritasAsociadas;
+		return participante.figuritasPegadas();
 	}
 	/**
 	* Verifica si el participante identificado por dni ya completó el album.
@@ -200,7 +197,28 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	*/
 	@Override
 	public boolean intercambiar(int dni, int codFigurita) {
+		ArrayList<Figurita> figuritasMenorIgualValor = new ArrayList<Figurita>();
+		if(!participantes.containsKey(dni))
+			throw new RuntimeException("Participante no registrado");
+		Participante participanteA = participantes.get(dni);
+		if(participanteA.tieneFiguritaEnColeccion(codFigurita) == null)
+			throw new RuntimeException("No posee la figura en su coleccion");
 		
+		Album albumA = participanteA.obtenerAlbum();
+		Iterator<Map.Entry<Integer,Participante>> it = participantes.entrySet().iterator();
+		while(it.hasNext() ) {
+			Map.Entry<Integer,Participante> participanteABuscar =it.next();
+			if(((Participante)participanteABuscar).obtenerAlbum().getClass().equals(albumA)) {
+				Figurita figuritaADar = participanteA.tieneFiguritaEnColeccion(codFigurita);
+				figuritasMenorIgualValor = ((Participante)participanteABuscar).obtenerFiguritasIgualMenorValor(figuritaADar.obtenerValorBase());
+				Figurita figuritaAIntercambiar = participanteA.AlgunaFiguritaSinPegarEnAlbum(figuritasMenorIgualValor);
+				if(figuritaAIntercambiar != null) {
+					participanteA.intercambiarFigurita(figuritaADar, figuritaAIntercambiar);
+					((Participante)participanteABuscar).intercambiarFigurita(figuritaADar, figuritaADar);
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	/**
@@ -213,8 +231,9 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public boolean intercambiarUnaFiguritaRepetida(int dni) {
-		
-		return false;
+		if(!participantes.containsKey(dni))
+			throw new RuntimeException("Participante no registrado");
+		return intercambiar(dni, participantes.get(dni).obtenerAlgunaFiguritaDeLaColeccion().obtenerCodigoFigurita());
 	}
 	/**
 	* Dado el dni de un participante, se devuelve el nombre del mismo.

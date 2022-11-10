@@ -1,7 +1,10 @@
 package albumMundial;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class Participante {
 	private Album album;
@@ -38,29 +41,6 @@ public class Participante {
 		return premio;
 	}
 	
-	public boolean poseeAlbumCompleto (){
-
-		return false;
-	}
-
-	/* De cada figurita se devuelve un string "$pais-$numeroJugador"
-	 * hay que usar iteradores aca
-	 * */
-	
-	public ArrayList<String> pegarFiguritasEnElAlbum (){
-		ArrayList<String> figuritasPegadas = new ArrayList<String> ();
-		
-		return figuritasPegadas;
-		}
-
-	public void agregarFiguritasASuColeccion (List<Figurita> figus){
-		coleccionDeFiguritas.addAll(figus);
-	}
-
-	public void intercambiarFigurita(Figurita figuritaADar, Figurita figuritaARecibir){
-
-	}
-	
 	public int obtenerDNI() {
 		return dni;	
 	}
@@ -78,6 +58,15 @@ public class Participante {
 		return album;
 	}
 	
+	public boolean poseeAlbumCompleto (){
+
+		return false;
+	}
+
+	public void agregarFiguritasASuColeccion (List<Figurita> figus){
+		coleccionDeFiguritas.addAll(figus);
+	}
+	
 	public ArrayList<Figurita> obtenerColeccionDeFiguritas(){
 		return coleccionDeFiguritas;
 	}
@@ -93,24 +82,73 @@ public class Participante {
 	}
 	
 	public int obtenerUnCodigoFiguritaRepetida() {
-		for(Figurita figurita : coleccionDeFiguritas) {
-			return figurita.obtenerCodigoFigurita();
+		if(coleccionDeFiguritas.size() > 0) {
+			return coleccionDeFiguritas.get(0).obtenerCodigoFigurita();
 		}
 		return -1;
 	}
-	//Cuando se compra un sobre, este se guarda en la coleccion de figuritas.
-	//En la coleccion puede tener una figurita repetida y no haberse pegado nunca en el album. Si un sobre le toca dos figuritas iguales?
-	//debemos verificar que en la lista de figuritas pendientes por pegar, no este la misma y le insertemos dos veces
-	public ArrayList<Figurita> figuritasPendientesPorPegar() {
-		ArrayList<Figurita> figuritasPendientesPorPegar = new ArrayList<>();
-		for(int i = 0; i < coleccionDeFiguritas.size(); i++) {
-			if(!album.tienePegadaFigurita(coleccionDeFiguritas.get(i)) 
-					&& !figuritasPendientesPorPegar.contains(coleccionDeFiguritas.get(i))) {
-				figuritasPendientesPorPegar.add(coleccionDeFiguritas.remove(i));
+
+	public ArrayList<String> figuritasPegadas() {
+		ArrayList<String> figuritasPegadas = new ArrayList<>();
+		Iterator<Figurita> it = coleccionDeFiguritas.iterator();
+		while(it.hasNext() ) {
+			Figurita fig =it.next(); 
+			if(fig instanceof FiguritaTradicional) {
+				if (! album.tienePegadaFigurita(fig)) {
+					album.pegarFiguraEnElAlbum(fig);
+					figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
+					it.remove();
+				}
+			}else {
+				if(! ((AlbumExtendido)album).tienePegadaFigurita(fig)) {
+					((AlbumExtendido)album).pegarFiguraEnElAlbum(fig);
+					figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
+					it.remove();
+				}
 			}
+			
 		}
-		return figuritasPendientesPorPegar;
+		return figuritasPegadas;
 	}
 	
+	public ArrayList<Figurita> obtenerFiguritasIgualMenorValor(int valorBase){
+		ArrayList<Figurita> figuritasAintercambiar = new ArrayList<Figurita>();
+		
+		for (Figurita figurita : coleccionDeFiguritas) {
+			if(figurita.obtenerValorBase() <= valorBase && !figuritasAintercambiar.contains(figurita)) {
+				figuritasAintercambiar.add(figurita);
+			}
+		}
+		return figuritasAintercambiar;
+	}
 	
+	public Figurita tieneFiguritaEnColeccion(int codFigurita) {
+		int i = 0;
+		while (i < coleccionDeFiguritas.size()) {
+			if(coleccionDeFiguritas.get(i).obtenerCodigoFigurita() == codFigurita) {
+				return coleccionDeFiguritas.get(i);
+			}
+			i++;
+		}
+		return null;
+	}
+	
+	public Figurita AlgunaFiguritaSinPegarEnAlbum(ArrayList<Figurita> figuritas) {
+		int i = 0;
+		while(i < figuritas.size()) {
+			if(!album.tienePegadaFigurita(figuritas.get(i))) {
+				return figuritas.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public void intercambiarFigurita(Figurita figuritaADar, Figurita figuritaARecibir){
+		coleccionDeFiguritas.add(figuritaARecibir);
+		coleccionDeFiguritas.remove(figuritaADar);
+	}
+	
+	public Figurita obtenerAlgunaFiguritaDeLaColeccion() {
+		return coleccionDeFiguritas.get((new Random(System.currentTimeMillis())).nextInt(coleccionDeFiguritas.size()));
+	}
 }

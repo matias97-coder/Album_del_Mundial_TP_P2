@@ -53,8 +53,8 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	////////////////////////////////////////////////////////////////////////
 
 	public Album crearAlbumWeb() {
-	
-		Integer codigoAlbum = random.nextInt(999);
+		codigosAlbum++;
+		Integer codigoAlbum = codigosAlbum;
 		String premio = "Camiseta oficial de la selecci�n";
 		String codigoPromocional = "PROMO" + Integer.toString(random.nextInt(999999));
 		
@@ -62,16 +62,16 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	}
 
 	public Album crearAlbumExtendido() {
-	
-		Integer codigoAlbum = random.nextInt(999);
+		codigosAlbum++;
+		Integer codigoAlbum = codigosAlbum;
 		String premio = "Pelota y un viaje";
 		
 		return new AlbumExtendido(premio, codigoAlbum, paisesParticipantes, listadoDeMundialesTop10);
 	}
 
 	public Album crearAlbumTradicional() {
-		
-		Integer codigoAlbum = random.nextInt(999);
+		codigosAlbum++;
+		Integer codigoAlbum = codigosAlbum;
 		String premio = "Pelota";
 		Integer numeroSorteo = random.nextInt(99);
 		
@@ -375,9 +375,8 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 		return ret;
 	}
 	
-	
+	//son 384 figuritas en total -- 1 a 384
    private ArrayList<Figurita> generarFiguritasTradicionales(){
-	   //son 384 figuritas en total
 	   ArrayList<Figurita> figuritasTradicionales = new ArrayList<Figurita> ();
 	   int codigosFiguritas=0;
 	   for (String paisPart: paisesParticipantes ) {
@@ -393,13 +392,11 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	   return figuritasTradicionales;
 	   
    }
-   
-  private ArrayList<Figurita> generarFiguritasTOP10(){
+   // los cidigos de las TOP10 empiezan desde 385
+   private ArrayList<Figurita> generarFiguritasTOP10(){
 	   ArrayList<Figurita> figuritasTOP = new ArrayList<Figurita> ();
-	   int codigo=totFiguritasTradicionales; // los cidigos de las TOP10 empiezan desde 385
-	   
+	   int codigo=totFiguritasTradicionales; 
 	   for (String sedeMundial:listadoDeMundialesTop10) {
-		   
 		   for (int i=0;i<2;i++) {
 			   Figurita figTOP;
 			   codigo++;   
@@ -424,5 +421,10 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	  return figuritasTOP;
   }
    
-
+   public Figurita obtenerFigurita(Integer codigoFigurita) {
+	   if(codigoFigurita < 384) {
+		   return figuritasTradicionales.get(codigoFigurita);
+	   }
+	   return figuritasTOP.get(codigoFigurita);
+   }
 }
