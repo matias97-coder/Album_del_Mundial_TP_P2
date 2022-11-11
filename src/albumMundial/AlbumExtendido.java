@@ -37,7 +37,7 @@ public class AlbumExtendido extends Album {
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
 		SeccionTOP10 secTOP= seccionTop10.get(fig.obtenerNombrePais());
 		
-		if (figuritasTOPpegadas<totalJugadoresTOP){
+		if ((figuritasTOPpegadas<totalJugadoresTOP) && (estaPegadaLaFigEnSecTOP(fig)== false)){
 			secTOP.pegarFiguritaEnLaSeccionTOP(fig);
 			figuritasTOPpegadas++;
 		}
@@ -47,12 +47,10 @@ public class AlbumExtendido extends Album {
 	public boolean tieneCodigoPromocional () {
 		return false;
 	}
-	
-	
-	
+
 	@Override
 	public boolean completoAlbum() {
-		return (cantJugadoresTotales()==cantTotalDeFiguritasPegadas()) && (figuritasTOPpegadas == totalJugadoresTOP)  ;
+		return (cantJugadoresTotales()+totalJugadoresTOP) == (cantTotalDeFiguritasPegadas() +figuritasTOPpegadas )  ;
 	}
 	
 }

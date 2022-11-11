@@ -65,9 +65,10 @@ public abstract class Album {
 	 * si es null entonces puedo pegar la figurita
 	 */
 	public void pegarFiguraEnElAlbum(Figurita fig) {
-			SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
+		
 			
-			if (figuritasTotales <totalJugadores) {
+			if ((figuritasTotales <totalJugadores) && (tienePegadaFigurita(fig)==false) ) {
+				SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
 				sec.pegarFiguritaEnLaSeccion(fig);
 				figuritasTotales++;
 			}

@@ -35,8 +35,9 @@ public class SeccionTOP10 {
 
 	
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
-
+			if (tieneFiguritaPegadaSeccionTOP10 (fig)==false) {
 			seccionTOP.add(fig.obtenerCodigoFigurita(), fig.obtenerNombreJugador()); // seccion.add(index, String)
+			}
 	}
 	
 
