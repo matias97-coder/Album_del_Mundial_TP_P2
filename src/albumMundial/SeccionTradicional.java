@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 public class SeccionTradicional {
 
-	private int figuritaPegadas=0;
+	private int figuritaPegadas;
 	private String pais;
 	private ArrayList<String> seccion;
 	
 	public SeccionTradicional(String pais) {
 		this.pais=pais;
 		seccion= cargarSeccion();
+		figuritaPegadas=0;
 	}
 	
 	public String obtenerPaisSeccion() {
@@ -33,50 +34,29 @@ public class SeccionTradicional {
 	public boolean seccionCompleta() {
 		return figuritaPegadas==12;
 	}
-	/*
-	// devuelve el nombre del jugador pegado en el la seccion
-	public String obtenerFiguritaEnSeccion(Figurita fig) {
-		if (seccion.get(fig.obtenerPosicion())!=null)
-			return fig.obtenerNombreJugador();
-		return null; // devuelvo en nombre accediendo a su posicion en el Array
-	}
+
+	/* true= hay fig pegada
+	/false= es que la seccion esta en null, 
+	 * seccion.get(fig.obtenerPosicion())=null;
 	*/
-	// true= hay fig pegada
-	// false= es que la seccion esta en null, 
 	public boolean tieneFiguritaPegadaSeccion (Figurita fig) {
 		return  seccion.get(fig.obtenerPosicion()) != null;
 	}
 	
-
+	//si da true, entonces no pude pegar la figurita
 	// agrega en el nombre del jugador en la seccion 
 	public void pegarFiguritaEnLaSeccion(Figurita fig) {
 		
-		//Si la salida es "null" devuelve true, por la tanto puede pegar una figurta
-		if (tieneFiguritaPegadaSeccion(fig) == false) {	
 			/*
 			 * index= codFig 0 a 11 , String= nombre Jugador
 			 * seccion.add(index, String)
 			*/
 			seccion.add(fig.obtenerPosicion(), fig.obtenerNombreJugador()); 
 			figuritaPegadas++; // este contador solo llega hasta 12
-		}
+		
 	}
 	
-	
-	/* Me devuelve una lista con los "numeros" de las figuritas 
-	 * que me faltan para completar la seccion
-	*/
-	public ArrayList<Integer> figuritasTradicionalesQueFaltanPegar(){
-		ArrayList<Integer> figuritasFaltantes = new ArrayList<Integer>();
-		
-		for (int i=0;i<cargarSeccion().size();i++) {
-			if (seccion.get(i).equals(null))
-				figuritasFaltantes.add(i);
-		}
-		
-		return figuritasFaltantes;
-	}
-	
+
 	
 
 }

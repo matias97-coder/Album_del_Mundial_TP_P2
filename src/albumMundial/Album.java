@@ -4,10 +4,11 @@ package albumMundial;
 
 import java.util.HashMap;
 
+
 public abstract class Album {
 	
 
-	private int figuritasTotales=0;
+	private int figuritasTotales;
 	private int cantJugadoresEquipo=12;
 	private int paisesParticipantes=32;
 	private String premio;
@@ -31,6 +32,7 @@ public abstract class Album {
 		this.codigoAlbum = codigoAlbum;
 		this.paisesClasificados = paisesClasificados;
 		this.seccionesJugadores= generarSeccionJugadores();
+		figuritasTotales=0;
 	} 
 
 	public Album() {
@@ -56,37 +58,34 @@ public abstract class Album {
 	public int cantJugadoresTotales() {
 		return  totalJugadores;
 	}
-	
-	public String obtenerNumeroDeCodigoAlbum() {
-		return null;
-	}
-	
+
 	
 	/* Para poder pegar la Figurita la funcion 
 	 * tienePegadaFigurita(fig) tiene que llegar en null
 	 * si es null entonces puedo pegar la figurita
 	 */
 	public void pegarFiguraEnElAlbum(Figurita fig) {
-
-		if ( tienePegadaFigurita(fig) == false) {
-			seccionesJugadores.get(fig.obtenerNombrePais()).pegarFiguritaEnLaSeccion(fig);
+			SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
+			
+			sec.pegarFiguritaEnLaSeccion(fig);
 			figuritasTotales++;
-		}
+		
 	}
-
-	// quiero pegar la figurita, si la seccion esta en null
+	// True si tiene una figurita pegada
+	// False= quiero pegar la figurita, si la seccion esta en null
 	public boolean tienePegadaFigurita(Figurita fig)
 	{
 		// get. (pais,seccionTradicional)
-		return seccionesJugadores.get(fig.obtenerNombrePais()).tieneFiguritaPegadaSeccion(fig);
+		SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
+		
+		return sec.tieneFiguritaPegadaSeccion(fig);
 	}
 
-	public void reclamarPremio() {
-		
-	}
 	public boolean completoSeccionPais (String pais) {
-		// solo sirve para los albunes comunes
-		return seccionesJugadores.get(pais).seccionCompleta();
+		
+		SeccionTradicional sec= seccionesJugadores.get(pais);
+		
+		return sec.seccionCompleta();
 	}
 	
 
@@ -101,7 +100,20 @@ public abstract class Album {
 		return mapaSeccionJugadores;
 	}
 	
+	public boolean equals(Object obj) {
 
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Album)) {
+			return false;
+		}
+
+		Album otroAlbum = (Album) obj;
+
+		return getClass().equals(otroAlbum.getClass());
+
+	}
 
 	public abstract boolean tieneCodigoPromocional ();
 	public abstract boolean completoAlbum();

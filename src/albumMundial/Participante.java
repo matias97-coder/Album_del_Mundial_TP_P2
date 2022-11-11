@@ -24,6 +24,9 @@ public class Participante {
 		return st.toString();
 	}
 	
+	public boolean completeElAlbum() {
+		return album.completoAlbum();
+	}
 	
 	public Participante(Album album, String nombreUsuario, int dni) {
 		this.album = album;
@@ -74,16 +77,6 @@ public class Participante {
 		return coleccionDeFiguritas;
 	}
 
-	public String tipoAlbum () {
-		if (album instanceof AlbumTradicional)
-			return "Tradicional";
-		if (album instanceof AlbumWeb)
-			return "WEB";
-		if (album instanceof AlbumExtendido)
-			return "Extendido";
-		return null;
-	}
-	
 	public int obtenerUnCodigoFiguritaRepetida() {
 		if(coleccionDeFiguritas.size() > 0) {
 			return coleccionDeFiguritas.get(0).obtenerCodigoFigurita();
@@ -91,40 +84,45 @@ public class Participante {
 		return -1;
 	}
 
-	public ArrayList<String> figuritasPegadas() {
-		ArrayList<String> figuritasPegadas = new ArrayList<>();
+	public List<String> figuritasPegadas() {
+		ArrayList<String> figuritasPegadasN = new ArrayList<>();
+		
 		Iterator<Figurita> it = coleccionDeFiguritas.iterator();
 		while(it.hasNext() ) {
 			Figurita fig =it.next(); 
 			if(fig instanceof FiguritaTradicional) {
-				
 				// en .pegarFiguraEnElAlbum(fig) ya vilida si se puede pegar o no la fig
-				album.pegarFiguraEnElAlbum(fig);
-				figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
-				it.remove();
-				
-			}else {
-				if(fig instanceof FiguritaTOP10) {
-					// en .pegarFiguritaEnLaSeccionTOP(fig) ya vilida si se puede pegar o no la figTOP
-					((AlbumExtendido)album).pegarFiguritaEnLaSeccionTOP(fig);;
-					figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
+				if (album.tienePegadaFigurita(fig) == false && !album.completoAlbum()) {
+					album.pegarFiguraEnElAlbum(fig);
+					figuritasPegadasN.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
 					it.remove();
 				}
 			}
 			
+			/*else {
+				if(fig instanceof FiguritaTOP10) {
+					// en .pegarFiguritaEnLaSeccionTOP(fig) ya vilida si se puede pegar o no la figTOP
+					((AlbumExtendido)album).pegarFiguritaEnLaSeccionTOP(fig);
+					figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
+					it.remove();
+				}
+			}*/
+			
 		}
-		return figuritasPegadas;
+		
+
+		return figuritasPegadasN;
 	}
 	
 	/* Devuelve una lista con las figuritas que no pegue de mi coleccion,
 	 *  del mismo tipo que la que recibo por
 	 parametro
 	 */
-	public ArrayList<Figurita> obtenerFiguritasIgualMenorValor(Figurita otraFig){
+	public ArrayList<Figurita> obtenerFiguritasIgualMenorValor(int valorFinal){
 		ArrayList<Figurita> figuritasAintercambiar = new ArrayList<Figurita>();
 		
 		for (Figurita figurita : coleccionDeFiguritas) {
-			if(figurita.equals(otraFig)) {
+			if(figurita.calcularValorFinal()<=valorFinal) {
 				figuritasAintercambiar.add(figurita);
 			}
 		}
@@ -132,10 +130,10 @@ public class Participante {
 	}
 	
 	public Figurita tieneFiguritaEnColeccion(int codFigurita) {
-		int i = 0;
 		
 		if (codFigurita==-1)
 			return null;
+		int i = 0;
 		
 		while (i < coleccionDeFiguritas.size()) {
 			if(coleccionDeFiguritas.get(i).obtenerCodigoFigurita() == codFigurita) {
@@ -170,4 +168,36 @@ public class Participante {
 	public Figurita obtenerAlgunaFiguritaDeLaColeccion() {
 		return coleccionDeFiguritas.get((new Random(System.currentTimeMillis())).nextInt(coleccionDeFiguritas.size()));
 	}
+	
+	public boolean completoUnaSeccion (String pais) {
+		return album.completoSeccionPais(pais);
+	}
+	
+	public boolean equals(Object obj) {
+
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Participante)) {
+			return false;
+		}
+
+		Participante otroPart = (Participante) obj;
+
+		return album.equals(otroPart.obtenerAlbum()) && dni!=otroPart.obtenerDNI();
+
+	}
+	
+
+	public String tipoAlbum () {
+		if (album instanceof AlbumTradicional)
+			return "Tradicional";
+		if (album instanceof AlbumWeb)
+			return "WEB";
+		if (album instanceof AlbumExtendido)
+			return "Extendido";
+		return null;
+	}
+	
+	
 }

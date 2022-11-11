@@ -36,7 +36,7 @@ public class AlbumTradicional extends Album{
 		
 	@Override
 	public boolean completoAlbum() {
-		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas();
+		return cantJugadoresTotales()==cantTotalDeFiguritasPegadas();
 	}
 	
 	public int obtenerNumeroSorteo() {

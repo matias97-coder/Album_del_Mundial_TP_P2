@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class AlbumExtendido extends Album {
 
-	private int figuritasTOPpegadas=0;
+	private int figuritasTOPpegadas;
 	private int totalJugadoresTOP=20;
 	private HashMap<String, SeccionTOP10> seccionTop10;
 	private String [] mundialesTop10;
@@ -12,8 +12,8 @@ public class AlbumExtendido extends Album {
 	public AlbumExtendido(String premio, Integer codigoAlbum, String[] paisesClasificados, String [] mundialesTop10) {
 		super(premio, codigoAlbum, paisesClasificados);
 		this.mundialesTop10=mundialesTop10;
-
 		this.seccionTop10=generarSeccionTop10();
+		figuritasTOPpegadas=0;
 	}
 
 	private HashMap<String, SeccionTOP10> generarSeccionTop10(){
@@ -47,7 +47,7 @@ public class AlbumExtendido extends Album {
 	
 	@Override
 	public boolean completoAlbum() {
-		return cantJugadoresTotales()==cantTotalDeFiguritasPegadas() && figuritasTOPpegadas == totalJugadoresTOP  ;
+		return (cantJugadoresTotales()==cantTotalDeFiguritasPegadas()) && (figuritasTOPpegadas == totalJugadoresTOP)  ;
 	}
 	
 }

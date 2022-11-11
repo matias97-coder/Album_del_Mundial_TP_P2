@@ -125,7 +125,9 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	public List<String> pegarFiguritas(int dni){
 		if(!participantes.containsKey(dni)) 
 			throw new RuntimeException("Participante no esta registrado");
+		
 		Participante participante = participantes.get(dni);
+		
 		return participante.figuritasPegadas();
 	}
 	/**
@@ -228,10 +230,10 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 			Integer dni_B = (Integer)participanteABuscar.getKey(); // clave
 		    Participante participante_B = (Participante)participanteABuscar.getValue(); //valor
 		    
-			if(participante_B.obtenerAlbum().getClass().equals(album_A.getClass()) && dni != dni_B 
-					&& participante_B.obtenerAlbum().cantTotalDeFiguritasPegadas() !=0 ) {
+			if(participante_A.equals(participante_B)) {
 				
-				figuritasMenorIgualValor = participante_B.obtenerFiguritasIgualMenorValor(figuritaADar);
+				figuritasMenorIgualValor = participante_B.obtenerFiguritasIgualMenorValor(figuritaADar.calcularValorFinal());
+				
 				// Figurita que da el participante B
 				Figurita figuritaAIntercambiar = participante_A.AlgunaFiguritaSinPegarEnAlbum(figuritasMenorIgualValor);
 				
@@ -259,13 +261,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		if(!participantes.containsKey(dni))
 			throw new RuntimeException("Participante no registrado");
 		Participante part= participantes.get(dni);
-		
-		if (part.obtenerAlbum().cantTotalDeFiguritasPegadas() == 0) 
-			return true;
-		
-		if (part.estaVacioColeccion())
-			return false;
-		
+
 		int codFigRep= buscarFiguritaRepetida(dni);
 		
 		return intercambiar(dni, codFigRep);
@@ -317,13 +313,14 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	public String listadoDeGanadores() {
 		StringBuilder listado= new StringBuilder();
 		
-		for(Integer dni : participantes.keySet()) { // recorro todas las keys del diccionario participante
-			Participante part = participantes.get(dni);
+		for(Integer key : participantes.keySet()) { // recorro todas las keys del diccionario participante
+			Participante part = participantes.get(key);
 			Album alb=part.obtenerAlbum();
 			
-			if (llenoAlbum(dni)) {
-				listado.append("$dni: ").append(part.obtenerDNI()).append("$nombre: ").append(part.obtenerNombreUsuario())
-				.append("$premio: ").append(alb.obtenerPremio()).append ("\n");
+			if (alb.completoAlbum()) {
+	
+				listado.append("dni: ").append(part.obtenerDNI()).append(" | nombre: ").append(part.obtenerNombreUsuario())
+				.append(" | premio: ").append(alb.obtenerPremio()).append ("\n");
 			}
 			
 		}
@@ -339,16 +336,16 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public List<String> participantesQueCompletaronElPais(String nombrePais){
-
+		
 		LinkedList<String> partCompletaronPais= new LinkedList<String>();
 		
 		for(Integer key : participantes.keySet()) { // recorro todas las keys del diccionario participante
 			Participante part = participantes.get(key);
-			Album alb=part.obtenerAlbum();
-			
-			if (alb.completoSeccionPais(nombrePais)) {
-				String dato="($dni " +String.valueOf(part.obtenerDNI())+") $nombre: "
-				+part.obtenerNombreUsuario()+ " $tipoAlbum "+part.obtenerAlbum();
+
+			String dato=null;
+			if (part.completoUnaSeccion(nombrePais)) {
+				 dato="(dni " +String.valueOf(part.obtenerDNI())+") |nombre: "
+				+part.obtenerNombreUsuario()+ " |tipoAlbum "+part.tipoAlbum();
 				
 				partCompletaronPais.add(dato);
 			}
@@ -356,6 +353,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		return partCompletaronPais;
 	}
 	
+
 	
 	//METODOS AUXILIARES
 

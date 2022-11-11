@@ -55,7 +55,7 @@ el valor base de las figuritas, los premios, los países y sus ranking,
 	public Album crearAlbumWeb() {
 		codigosAlbum++;
 		Integer codigoAlbum = codigosAlbum;
-		String premio = "Camiseta oficial de la selecci�n";
+		String premio = "Camiseta oficial de la seleccion";
 		String codigoPromocional = "PROMO" + Integer.toString(random.nextInt(999999));
 		
 		return new AlbumWeb(premio, codigoAlbum, paisesParticipantes, codigoPromocional);

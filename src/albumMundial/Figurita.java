@@ -1,8 +1,9 @@
 package albumMundial;
 
 public abstract class Figurita {
-	private int posicion;
+
 	private int codigoFigurita;
+	private int posicion;
 	private int valorBase;
 	private Integer rankingPais;
 	private String nombrePais;
