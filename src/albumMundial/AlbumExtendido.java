@@ -28,11 +28,16 @@ public class AlbumExtendido extends Album {
 		return figuritasTOPpegadas == totalJugadoresTOP;
 	}
 	
+	public boolean estaPegadaLaFigEnSecTOP(Figurita fig) {
+		SeccionTOP10 sec10 = seccionTop10.get(fig.obtenerNombrePais());
+		
+		return  sec10.tieneFiguritaPegadaSeccionTOP10(fig);
+	}
 	
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
 		SeccionTOP10 secTOP= seccionTop10.get(fig.obtenerNombrePais());
 		
-		if (secTOP.tieneFiguritaPegadaSeccionTOP10(fig) == false) {
+		if (figuritasTOPpegadas<totalJugadoresTOP){
 			secTOP.pegarFiguritaEnLaSeccionTOP(fig);
 			figuritasTOPpegadas++;
 		}

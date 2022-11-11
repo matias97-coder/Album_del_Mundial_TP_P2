@@ -24,14 +24,7 @@ public class SeccionTOP10 {
 		
 		return seccionesTOP10;
 	}
-	
-	/*
-	// devuelve el nombre del jugador pegado en el la seccion
-	public String obtenerFiguritaEnSeccionTOP10(Figurita fig) {
-		return seccionTOP.get(fig.obtenerPosicion());
-	}
-	*/
-	
+
 	
 	// true= hay fig pegada
 	// false= es que la seccion esta en null, 
@@ -42,24 +35,9 @@ public class SeccionTOP10 {
 
 	
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
-		if ( tieneFiguritaPegadaSeccionTOP10(fig) == false) {
+
 			seccionTOP.add(fig.obtenerCodigoFigurita(), fig.obtenerNombreJugador()); // seccion.add(index, String)
-		}
 	}
 	
-	/* Me devuelve una lista con los "numeros" de las figuritas 
-	 * que me faltan para completar la seccion
-	*/
-	
-	public ArrayList<Integer> figuritasTOP10QueFaltanPegar(){
-		ArrayList<Integer> figuritasFaltantes = new ArrayList<Integer>();
-		
-		for (int i=0;i<cargarSeccion().size();i++) {
-			if (seccionTOP.get(i).equals(null))
-				figuritasFaltantes.add(i);
-		}
-		
-		return figuritasFaltantes;
-	}
 
 }

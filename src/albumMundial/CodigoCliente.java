@@ -16,6 +16,10 @@ public class CodigoCliente {
 		sistema.registrarParticipante(777777, "Dante", "Tradicional");
 
 		sistema.comprarFiguritas(222222);
+		
+		/*
+		
+		
 		// El participante 111111 tiene album Web entonces tiene un codigo
 		// promocional para solicitar 4 figuritas sin consto.
 		sistema.comprarFiguritasConCodigoPromocional(111111);
@@ -51,9 +55,6 @@ public class CodigoCliente {
 			sistema.pegarFiguritas(555555);
 		}
 
-		
-
-		
 		for (int i = 0; i < 500; i++) {
 			sistema.comprarFiguritas(666666);
 			sistema.pegarFiguritas(666666);
@@ -63,6 +64,7 @@ public class CodigoCliente {
 
 
 		if (sistema.llenoAlbum(222222)) {
+			
 			System.out.println(sistema.darNombre(222222) + " recibio: " + sistema.darPremio(222222));
 			System.out.println();
 		}
@@ -78,6 +80,8 @@ public class CodigoCliente {
 		System.out.println();
 		System.out.println("=================================================");
 		System.out.println(sistema);
+		
+		
 	}
 
 }

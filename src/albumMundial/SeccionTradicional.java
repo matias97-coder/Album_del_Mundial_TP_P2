@@ -51,12 +51,16 @@ public class SeccionTradicional {
 			 * index= codFig 0 a 11 , String= nombre Jugador
 			 * seccion.add(index, String)
 			*/
+			if (figuritaPegadas<12) {
 			seccion.add(fig.obtenerPosicion(), fig.obtenerNombreJugador()); 
 			figuritaPegadas++; // este contador solo llega hasta 12
-		
+			}
 	}
 	
 
+	public int cantSeccionesCreadas() {
+		return seccion.size();
+	}
 	
 
 }

@@ -67,14 +67,14 @@ public abstract class Album {
 	public void pegarFiguraEnElAlbum(Figurita fig) {
 			SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
 			
-			sec.pegarFiguritaEnLaSeccion(fig);
-			figuritasTotales++;
-		
+			if (figuritasTotales <totalJugadores) {
+				sec.pegarFiguritaEnLaSeccion(fig);
+				figuritasTotales++;
+			}
 	}
 	// True si tiene una figurita pegada
 	// False= quiero pegar la figurita, si la seccion esta en null
-	public boolean tienePegadaFigurita(Figurita fig)
-	{
+	public boolean tienePegadaFigurita(Figurita fig) {
 		// get. (pais,seccionTradicional)
 		SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
 		
@@ -88,6 +88,15 @@ public abstract class Album {
 		return sec.seccionCompleta();
 	}
 	
+	public void mostrarAlbum() {
+		
+		int i=0;
+		for(String pais : seccionesJugadores.keySet()) {
+			i++;
+			
+			System.out.println(i+" "+ pais+" "+seccionesJugadores.get(pais).cantFigusPegadasSeccion());
+		}
+	}
 
 	private HashMap<String, SeccionTradicional> generarSeccionJugadores(){
 		HashMap<String, SeccionTradicional> mapaSeccionJugadores = new HashMap<String, SeccionTradicional>();

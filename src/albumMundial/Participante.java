@@ -51,18 +51,8 @@ public class Participante {
 		return nombreUsuario;
 	}
 	
-	public boolean estaFiguritaEnColeccion (Figurita fig){
-		
-		return false;
-	}
-	
 	public Album obtenerAlbum () {
 		return album;
-	}
-	
-	public boolean poseeAlbumCompleto (){
-
-		return false;
 	}
 	
 	public boolean estaVacioColeccion() {
@@ -92,31 +82,30 @@ public class Participante {
 			Figurita fig =it.next(); 
 			if(fig instanceof FiguritaTradicional) {
 				// en .pegarFiguraEnElAlbum(fig) ya vilida si se puede pegar o no la fig
-				if (album.tienePegadaFigurita(fig) == false && !album.completoAlbum()) {
+				if (album.tienePegadaFigurita(fig) == false) {
 					album.pegarFiguraEnElAlbum(fig);
 					figuritasPegadasN.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
 					it.remove();
 				}
 			}
 			
-			/*else {
+			else {
 				if(fig instanceof FiguritaTOP10) {
-					// en .pegarFiguritaEnLaSeccionTOP(fig) ya vilida si se puede pegar o no la figTOP
-					((AlbumExtendido)album).pegarFiguritaEnLaSeccionTOP(fig);
-					figuritasPegadas.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
-					it.remove();
+					if (((AlbumExtendido)album).tienePegadaFigurita(fig) == false) {
+						((AlbumExtendido)album).pegarFiguritaEnLaSeccionTOP(fig);
+						figuritasPegadasN.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
+						it.remove();
+					}
 				}
-			}*/
+			}
 			
 		}
-		
 
 		return figuritasPegadasN;
 	}
 	
 	/* Devuelve una lista con las figuritas que no pegue de mi coleccion,
-	 *  del mismo tipo que la que recibo por
-	 parametro
+	 * que son de menor o igual valor de la que recibo por parametro
 	 */
 	public ArrayList<Figurita> obtenerFiguritasIgualMenorValor(int valorFinal){
 		ArrayList<Figurita> figuritasAintercambiar = new ArrayList<Figurita>();
@@ -144,6 +133,10 @@ public class Participante {
 		return null;
 	}
 	
+	/*
+	 * Devuelve una figurita de otro participante B, para realizar el intercambio
+	 * */
+	
 	public Figurita AlgunaFiguritaSinPegarEnAlbum(ArrayList<Figurita> figuritas_part_B) {
 		int i = 0;
 		while(i < figuritas_part_B.size()) {
@@ -152,7 +145,8 @@ public class Participante {
 			 * decir, esta en false = null, entonces devuelve esa fig
 			 * que no tiene pegada del participante b
 			 */
-			if(album.tienePegadaFigurita(figuritas_part_B.get(i)) == false) {
+			Figurita fig= figuritas_part_B.get(i);
+			if(album.tienePegadaFigurita(fig) == false) {
 				return figuritas_part_B.get(i);
 			}
 			i++;

@@ -53,7 +53,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	@Override
 	public void comprarFiguritas(int dni) {
 		Participante part= participantes.get(dni);
-		
+			
 		if(!participantes.containsKey(dni)) {
 			throw new RuntimeException("Participante no esta registrado");
 		}
@@ -342,10 +342,9 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		for(Integer key : participantes.keySet()) { // recorro todas las keys del diccionario participante
 			Participante part = participantes.get(key);
 
-			String dato=null;
+			String dato;
 			if (part.completoUnaSeccion(nombrePais)) {
-				 dato="(dni " +String.valueOf(part.obtenerDNI())+") |nombre: "
-				+part.obtenerNombreUsuario()+ " |tipoAlbum "+part.tipoAlbum();
+				 dato="(dni " +String.valueOf(part.obtenerDNI())+") |nombre: "+part.obtenerNombreUsuario()+ " |tipoAlbum "+part.tipoAlbum();
 				
 				partCompletaronPais.add(dato);
 			}
