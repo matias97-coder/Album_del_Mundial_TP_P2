@@ -317,12 +317,11 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	public String listadoDeGanadores() {
 		StringBuilder listado= new StringBuilder();
 		
-		for(Integer key : participantes.keySet()) { // recorro todas las keys del diccionario participante
-			Participante part = participantes.get(key);
+		for(Integer dni : participantes.keySet()) { // recorro todas las keys del diccionario participante
+			Participante part = participantes.get(dni);
 			Album alb=part.obtenerAlbum();
 			
-			if (alb.completoAlbum()) {
-	
+			if (llenoAlbum(dni)) {
 				listado.append("$dni: ").append(part.obtenerDNI()).append("$nombre: ").append(part.obtenerNombreUsuario())
 				.append("$premio: ").append(alb.obtenerPremio()).append ("\n");
 			}
