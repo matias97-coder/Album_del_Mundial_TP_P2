@@ -91,7 +91,7 @@ public class Participante {
 			
 			else {
 				if(fig instanceof FiguritaTOP10) {
-					if (((AlbumExtendido)album).tienePegadaFigurita(fig) == false) {
+					if (((AlbumExtendido)album).estaPegadaLaFigEnSecTOP(fig) == false) {
 						((AlbumExtendido)album).pegarFiguritaEnLaSeccionTOP(fig);
 						figuritasPegadasN.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
 						it.remove();

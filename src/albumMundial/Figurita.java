@@ -9,7 +9,6 @@ public abstract class Figurita {
 	private String nombrePais;
 	private String nombreJugador;
 	
-	private boolean estaPegada=false;
 	public Figurita () {}
 	
 	@Override
@@ -50,14 +49,6 @@ public abstract class Figurita {
 		return valorBase;
 	}
 
-	public boolean sePegoLaFigurita () {
-		return estaPegada;
-	}
-	
-	public void pegarFigurita (boolean pegar) {
-		estaPegada=pegar;
-	}
-
 	public int obtenerCodigoFigurita() {
 		return codigoFigurita;
 	}
@@ -84,6 +75,4 @@ public abstract class Figurita {
 
 	public abstract int calcularValorFinal();
 
-	
-	
 }

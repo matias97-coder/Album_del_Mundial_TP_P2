@@ -24,7 +24,7 @@ public class AlbumWeb extends Album{
 	}
 	
 	 public boolean estaCodigoPromocionalUtilizado() {
-		 return codigoPromocional==null;
+		 return codigoPromocional == null;
 	 }
 	 
 	 public void usarCodigoPromocional(String codPromocional) {

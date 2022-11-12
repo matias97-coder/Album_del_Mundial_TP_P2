@@ -6,11 +6,11 @@ public class SeccionTradicional {
 
 	private int figuritaPegadas;
 	private String pais;
-	private ArrayList<String> seccion;
+	private String [] seccion;
 	
 	public SeccionTradicional(String pais) {
 		this.pais=pais;
-		seccion= cargarSeccion();
+		seccion = new String[12];
 		figuritaPegadas=0;
 	}
 	
@@ -21,16 +21,7 @@ public class SeccionTradicional {
 	public int cantFigusPegadasSeccion() {
 		return figuritaPegadas;
 	}
-	
-	private ArrayList<String> cargarSeccion() {
-		ArrayList<String> secciones = new ArrayList<String> ();
-		for (int i=0;i<12;i++) {
-			secciones.add(null);
-		}
-		
-		return secciones;
-	}
-	
+
 	public boolean seccionCompleta() {
 		return figuritaPegadas==12;
 	}
@@ -40,7 +31,7 @@ public class SeccionTradicional {
 	 * seccion.get(fig.obtenerPosicion())=null;
 	*/
 	public boolean tieneFiguritaPegadaSeccion (Figurita fig) {
-		return  seccion.get(fig.obtenerPosicion()) != null;
+		return  seccion[fig.obtenerPosicion()] != null;
 	}
 	
 	//si da true, entonces no pude pegar la figurita
@@ -52,14 +43,14 @@ public class SeccionTradicional {
 			 * seccion.add(index, String)
 			*/
 			if ((figuritaPegadas<12) && (tieneFiguritaPegadaSeccion (fig)==false)) {
-			seccion.add(fig.obtenerPosicion(), fig.obtenerNombreJugador()); 
+				seccion[fig.obtenerPosicion()] = fig.obtenerNombreJugador();
 			figuritaPegadas++; // este contador solo llega hasta 12
 			}
 	}
 	
 
 	public int cantSeccionesCreadas() {
-		return seccion.size();
+		return seccion.length;
 	}
 	
 

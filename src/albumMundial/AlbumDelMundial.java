@@ -93,23 +93,21 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	
 	@Override
 	public void comprarFiguritasConCodigoPromocional(int dni) {
-		Participante part= participantes.get(dni);
-		Album album=part.obtenerAlbum();
-		
 		if(!participantes.containsKey(dni)) 
 			throw new RuntimeException("Participante no esta registrado");
 		
-		if (((AlbumWeb)album).estaCodigoPromocionalUtilizado())
-			throw new RuntimeException("El codigo promocional ya fue utilizado");
-		
-		if (! album.tieneCodigoPromocional())
-			throw new RuntimeException("El participante no tiene codigo promocional");
+		Participante part= participantes.get(dni);
+		Album album=part.obtenerAlbum();
 		
 		if (album instanceof AlbumWeb) { 
-			if ( ! ((AlbumWeb)album).estaCodigoPromocionalUtilizado()) {
+			if (!((AlbumWeb)album).estaCodigoPromocionalUtilizado()) {
 				part.agregarFiguritasASuColeccion(fabrica.generarSobre(4));
-				((AlbumWeb)album).usarCodigoPromocional(null); // el codig promocional pasa ser null
+				((AlbumWeb)album).usarCodigoPromocional(null); // el codig promocional pasa ser null				
+			}else {
+				throw new RuntimeException("El codigo promocional ya fue utilizado");
 			}
+		}else {
+			throw new RuntimeException("El participante no tiene codigo promocional");
 		}
 	}
 	/**
@@ -162,9 +160,9 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		if(! (participantes.containsKey(dni)) )
 			throw new RuntimeException("Participante no está registrado");
 		
-		Album album = participantes.get(dni).obtenerAlbum();
 		Participante part = participantes.get(dni);
-		
+		Album album = part.obtenerAlbum();
+
 		if( ! (album instanceof AlbumTradicional))
 			throw new RuntimeException("El album "+ part.tipoAlbum()+" no posee nro de sorteo");
 		
