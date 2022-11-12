@@ -141,9 +141,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		if(!participantes.containsKey(dni)) 
 			throw new RuntimeException("Participante no esta registrado");
 		
-		Participante part= participantes.get(dni);
-		Album album = part.obtenerAlbum();
-		return album.completoAlbum();
+		return participantes.get(dni).poseeAlbumCompleto();
 	}
 	/**
 	* Realiza el sorteo instantaneo con el codigo asociado al album
@@ -228,7 +226,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 			Integer dni_B = (Integer)participanteABuscar.getKey(); // clave
 		    Participante participante_B = (Participante)participanteABuscar.getValue(); //valor
 		    
-			if(participante_A.equals(participante_B)) {
+			if(!participante_A.equals(participante_B) && participante_A.obtenerAlbum().equals(participante_B.obtenerAlbum())) {
 				
 				figuritasMenorIgualValor = participante_B.obtenerFiguritasIgualMenorValor(figuritaADar.calcularValorFinal());
 				

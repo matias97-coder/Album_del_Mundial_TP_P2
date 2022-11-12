@@ -109,7 +109,7 @@ public abstract class Album {
 		}
 		return mapaSeccionJugadores;
 	}
-	
+
 	public boolean equals(Object obj) {
 
 		if (obj == null) {

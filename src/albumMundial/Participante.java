@@ -178,8 +178,12 @@ public class Participante {
 
 		Participante otroPart = (Participante) obj;
 
-		return album.equals(otroPart.obtenerAlbum()) && dni!=otroPart.obtenerDNI();
+		return  dni == otroPart.obtenerDNI();
 
+	}
+	
+	public boolean poseeAlbumCompleto() {
+		return album.completoAlbum();
 	}
 	
 
