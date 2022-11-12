@@ -30,14 +30,7 @@ public class AlbumWeb extends Album{
 	 public void usarCodigoPromocional(String codPromocional) {
 		 this.codigoPromocional=codPromocional;
 	 }
-	 
-	@Override
-	public boolean tieneCodigoPromocional () {
-		return codigoPromocional!=null;
-	}
 	
-
-		
 	@Override
 	public boolean completoAlbum() {
 		return super.cantJugadoresTotales()==super.cantTotalDeFiguritasPegadas();

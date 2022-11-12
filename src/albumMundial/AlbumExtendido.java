@@ -42,11 +42,6 @@ public class AlbumExtendido extends Album {
 			figuritasTOPpegadas++;
 		}
 	}
-	
-	@Override
-	public boolean tieneCodigoPromocional () {
-		return false;
-	}
 
 	@Override
 	public boolean completoAlbum() {

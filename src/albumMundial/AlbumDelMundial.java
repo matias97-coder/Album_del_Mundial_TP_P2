@@ -206,16 +206,13 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		if(codFigurita==-1)
 			return false;
 		
-		ArrayList<Figurita> figuritasMenorIgualValor = new ArrayList<Figurita>();
-		
 		if(!participantes.containsKey(dni))
 			throw new RuntimeException("Participante no registrado");
 		
 		Participante participante_A = participantes.get(dni);
-
+		ArrayList<Figurita> figuritasMenorIgualValor = new ArrayList<Figurita>();
 
 		// Figurita que da el participante A
-		Album album_A = participante_A.obtenerAlbum();
 		Figurita figuritaADar = participante_A.tieneFiguritaEnColeccion(codFigurita);
 	
 		Iterator<Map.Entry<Integer,Participante>> it = participantes.entrySet().iterator();
@@ -223,8 +220,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		while(it.hasNext() ) {
 			Map.Entry<Integer,Participante> participanteABuscar =it.next();
 			
-			Integer dni_B = (Integer)participanteABuscar.getKey(); // clave
-		    Participante participante_B = (Participante)participanteABuscar.getValue(); //valor
+		    Participante participante_B = participanteABuscar.getValue(); //valor
 		    
 			if(!participante_A.equals(participante_B) && participante_A.obtenerAlbum().equals(participante_B.obtenerAlbum())) {
 				
@@ -256,10 +252,8 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 	public boolean intercambiarUnaFiguritaRepetida(int dni) {
 		if(!participantes.containsKey(dni))
 			throw new RuntimeException("Participante no registrado");
-		Participante part= participantes.get(dni);
 
-		int codFigRep= buscarFiguritaRepetida(dni);
-		
+		int codFigRep= buscarFiguritaRepetida(dni);		
 		return intercambiar(dni, codFigRep);
 	}
 	/**

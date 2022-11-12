@@ -66,7 +66,6 @@ public abstract class Album {
 	 */
 	public void pegarFiguraEnElAlbum(Figurita fig) {
 		
-			
 			if ((figuritasTotales <totalJugadores) && (tienePegadaFigurita(fig)==false) ) {
 				SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
 				sec.pegarFiguritaEnLaSeccion(fig);
@@ -125,7 +124,6 @@ public abstract class Album {
 
 	}
 
-	public abstract boolean tieneCodigoPromocional ();
 	public abstract boolean completoAlbum();
 	
 }
