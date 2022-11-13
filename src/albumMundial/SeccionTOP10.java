@@ -1,7 +1,5 @@
 package albumMundial;
 
-import java.util.ArrayList;
-
 public class SeccionTOP10 {
 	private String sede;
 	private String [] seccionTOP;
@@ -24,9 +22,7 @@ public class SeccionTOP10 {
 
 	
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
-			if (tieneFiguritaPegadaSeccionTOP10 (fig)==false) {
-				seccionTOP[fig.obtenerPosicion()] = fig.obtenerNombreJugador();// seccion.add(index, String)
-			}
+		seccionTOP[fig.obtenerPosicion()] = fig.obtenerNombreJugador();// seccion.add(index, String)
 	}
 	
 

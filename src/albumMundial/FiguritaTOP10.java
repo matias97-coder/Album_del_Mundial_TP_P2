@@ -31,7 +31,6 @@ public class FiguritaTOP10 extends Figurita{
 		return tipoBalon;
 	}
 
-
 	@Override
 	public int calcularValorFinal() {
 		
@@ -40,7 +39,6 @@ public class FiguritaTOP10 extends Figurita{
 		
 		return (super.obtenerValorBase()+super.obtenerRankingPais())*110/100;
 	}
-	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -54,10 +52,7 @@ public class FiguritaTOP10 extends Figurita{
 
 		FiguritaTOP10 otraFig = (FiguritaTOP10) obj;
 
-		return tipoBalon.equals(otraFig.obtenerTipoBalon()) && obtenerNombrePais().equals(otraFig.obtenerNombrePais()) 
-				 && otraFig.calcularValorFinal() <=calcularValorFinal() && getClass().equals(otraFig.getClass());
-
+		return obtenerCodigoFigurita() == otraFig.obtenerCodigoFigurita();
 	}
-	
 	
 }

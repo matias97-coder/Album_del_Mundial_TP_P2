@@ -1,7 +1,5 @@
 package albumMundial;
 
-import java.util.ArrayList;
-
 public class SeccionTradicional {
 
 	private int figuritaPegadas;
@@ -42,16 +40,14 @@ public class SeccionTradicional {
 			 * index= codFig 0 a 11 , String= nombre Jugador
 			 * seccion.add(index, String)
 			*/
-			if ((figuritaPegadas<12) && (tieneFiguritaPegadaSeccion (fig)==false)) {
+			if ((figuritaPegadas<12)) {
 				seccion[fig.obtenerPosicion()] = fig.obtenerNombreJugador();
 			figuritaPegadas++; // este contador solo llega hasta 12
 			}
 	}
 	
-
 	public int cantSeccionesCreadas() {
 		return seccion.length;
 	}
 	
-
 }

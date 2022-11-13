@@ -226,6 +226,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 				
 				figuritasMenorIgualValor = participante_B.obtenerFiguritasIgualMenorValor(figuritaADar.calcularValorFinal());
 				
+				
 				// Figurita que da el participante B
 				Figurita figuritaAIntercambiar = participante_A.AlgunaFiguritaSinPegarEnAlbum(figuritasMenorIgualValor);
 				

@@ -37,7 +37,7 @@ public class AlbumExtendido extends Album {
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
 		SeccionTOP10 secTOP= seccionTop10.get(fig.obtenerNombrePais());
 		
-		if ((figuritasTOPpegadas<totalJugadoresTOP) && (estaPegadaLaFigEnSecTOP(fig)== false)){
+		if ((figuritasTOPpegadas<totalJugadoresTOP)){
 			secTOP.pegarFiguritaEnLaSeccionTOP(fig);
 			figuritasTOPpegadas++;
 		}

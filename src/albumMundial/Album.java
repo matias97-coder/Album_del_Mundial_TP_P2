@@ -43,11 +43,7 @@ public abstract class Album {
 		return codigoAlbum;
 	}
 	
-	public void cargarPremio(String premio) {
-		
-	}
 	public String obtenerPremio() {
-		
 		return premio;
 	}
 	
@@ -66,7 +62,7 @@ public abstract class Album {
 	 */
 	public void pegarFiguraEnElAlbum(Figurita fig) {
 		
-			if ((figuritasTotales <totalJugadores) && (tienePegadaFigurita(fig)==false) ) {
+			if ((figuritasTotales <totalJugadores)) {
 				SeccionTradicional sec= seccionesJugadores.get(fig.obtenerNombrePais());
 				sec.pegarFiguritaEnLaSeccion(fig);
 				figuritasTotales++;
@@ -86,16 +82,6 @@ public abstract class Album {
 		SeccionTradicional sec= seccionesJugadores.get(pais);
 		
 		return sec.seccionCompleta();
-	}
-	
-	public void mostrarAlbum() {
-		
-		int i=0;
-		for(String pais : seccionesJugadores.keySet()) {
-			i++;
-			
-			System.out.println(i+" "+ pais+" "+seccionesJugadores.get(pais).cantFigusPegadasSeccion());
-		}
 	}
 
 	private HashMap<String, SeccionTradicional> generarSeccionJugadores(){

@@ -15,7 +15,7 @@ public class CodigoCliente {
 		sistema.registrarParticipante(666666, "Jazzmine", "Extendido");
 		sistema.registrarParticipante(777777, "Dante", "Tradicional");
 
-		sistema.comprarFiguritasConCodigoPromocional(333333);
+//		sistema.comprarFiguritasConCodigoPromocional(333333);
 		
 		/*
 		
@@ -38,13 +38,12 @@ public class CodigoCliente {
 */
 		
 		
-		List<String> pegadas = sistema.pegarFiguritas(222222);
-
-		if (pegadas.isEmpty()) { // o sea... no pego ninguna
+		for (int i = 0; i < 700; i++) {
 			sistema.comprarFiguritas(222222);
-			sistema.intercambiar(222222, sistema.buscarFiguritaRepetida(222222));
+			sistema.comprarFiguritas(777777);
 		}
-
+		sistema.intercambiarUnaFiguritaRepetida(222222);
+/*
 		sistema.pegarFiguritas(333333);
 
 		// Simulamos un uso prolongado del sistema.
@@ -61,7 +60,8 @@ public class CodigoCliente {
 			sistema.comprarFiguritas(333333);
 			//sistema.pegarFiguritas(333333);
 		}
-
+*/
+		
 		if (sistema.llenoAlbum(222222)) {
 			
 			System.out.println(sistema.darNombre(222222) + " recibio: " + sistema.darPremio(222222));

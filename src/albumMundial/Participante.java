@@ -68,10 +68,22 @@ public class Participante {
 	}
 
 	public int obtenerUnCodigoFiguritaRepetida() {
-		if(coleccionDeFiguritas.size() > 0) {
-			return coleccionDeFiguritas.get(0).obtenerCodigoFigurita();
+		int i = 0;
+		while (i < coleccionDeFiguritas.size()) {
+			int j = i+1;
+			
+			Figurita fig = coleccionDeFiguritas.get(i);
+			
+			while(j < coleccionDeFiguritas.size()) {
+				Figurita figSiguiente = coleccionDeFiguritas.get(j);
+				if(fig.equals(figSiguiente)) {
+					return fig.obtenerCodigoFigurita();
+				}
+				j++;
+			}
+			i++;
 		}
-		return -1;
+	return -1;
 	}
 
 	public List<String> figuritasPegadas() {
@@ -186,7 +198,6 @@ public class Participante {
 		return album.completoAlbum();
 	}
 	
-
 	public String tipoAlbum () {
 		if (album instanceof AlbumTradicional)
 			return "Tradicional";

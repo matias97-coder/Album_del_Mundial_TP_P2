@@ -68,9 +68,7 @@ public abstract class Figurita {
 	
 		Figurita otraFig = (Figurita) obj;
 
-		return posicion == otraFig.posicion && nombrePais.equals(otraFig.obtenerNombrePais()) 
-				&& codigoFigurita>=0 && otraFig.obtenerCodigoFigurita()>=0
-				&& (getClass().equals(otraFig.getClass()) && otraFig.calcularValorFinal() <=calcularValorFinal() );
+		return  this.codigoFigurita == otraFig.codigoFigurita;
 	}
 
 	public abstract int calcularValorFinal();
