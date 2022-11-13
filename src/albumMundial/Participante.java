@@ -10,7 +10,7 @@ public class Participante {
 	private ArrayList<Figurita> coleccionDeFiguritas;
 	private String nombreUsuario;
 	private int dni;
-	private String premio=null;
+	private String premio;
 	
 	
 	@Override
@@ -33,6 +33,7 @@ public class Participante {
 		this.nombreUsuario = nombreUsuario;
 		this.dni = dni;
 		coleccionDeFiguritas= new ArrayList<Figurita>();
+		this.premio = null;
 	}
 	
 	public void cargarPremio(String premio) {
