@@ -8,9 +8,9 @@ public class AlbumTradicional extends Album{
 	public String toString() {
 			
 		StringBuilder st= new StringBuilder();
-			
-		st.append ("\n") .append (" numeroSorteo: ") .append (numeroSorteo).append ("\n");
-		
+		st.append(super.toString());	
+		st.append (" numeroSorteo: ") .append (numeroSorteo).append (" ");
+		st.append("|Tradicional - Figus pegadas:").append(cantTotalDeFiguritasPegadas ()).append ("\n");
 		return st.toString();
 	}
 	

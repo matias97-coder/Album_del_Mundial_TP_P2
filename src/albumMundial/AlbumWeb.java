@@ -7,9 +7,12 @@ public class AlbumWeb extends Album{
 	public String toString() {
 		
 		StringBuilder st= new StringBuilder();
-		
-		st.append ("\n") .append (" codigoPromocional: ") .append (codigoPromocional).append ("\n");
-	
+		st.append(super.toString());
+		if (codigoPromocional==null)
+			st.append (" codigoPromocional: Utilizado ").append("|WEB Figus pegadas:").append(cantTotalDeFiguritasPegadas ()).append ("\n");
+		else {
+			st.append (" codigoPromocional: ") .append (codigoPromocional).append (" ").append("|WEB Figus pegadas:").append(cantTotalDeFiguritasPegadas ()).append ("\n");
+		}
 		return st.toString();
 	}
 	

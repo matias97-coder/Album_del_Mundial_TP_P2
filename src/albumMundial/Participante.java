@@ -18,8 +18,8 @@ public class Participante {
 		
 		StringBuilder st= new StringBuilder();
 		
-		st.append ("\n") .append (" DNI: ") .append (dni).append(" nombreUsuario:").append(nombreUsuario)
-		.append(" Album:").append(tipoAlbum()).append("\n");
+		st.append (" DNI: ") .append (dni).append(" nombreUsuario:").append(nombreUsuario)
+		.append(" Album:").append(tipoAlbum());
 	
 		return st.toString();
 	}

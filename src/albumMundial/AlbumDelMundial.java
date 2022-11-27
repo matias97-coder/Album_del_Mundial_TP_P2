@@ -365,4 +365,24 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		return album;
 	}
 	
+	@Override
+	public String toString() {
+		
+		StringBuilder st= new StringBuilder();
+		st.append("                                           Empresa Figurini                                               ").append ("\n") ;
+		st.append("                                           ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯").append ("\n");
+		st.append(" Participantes Registrados                                           ").append ("\n") ;
+		st.append(" ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯").append ("\n");
+		st.append("|-------------------------------------------------------------------------------------------------------------|").append ("\n") ;
+		for(Integer dni : participantes.keySet()) {
+			Participante part = participantes.get(dni);
+			st.append("  Datos del participante").append ("\n");
+			st.append("  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯").append ("\n");
+			st.append(part);
+			st.append(part.obtenerAlbum());
+			st.append("|-------------------------------------------------------------------------------------------------------------|").append ("\n") ;
+		}
+		return st.toString();
+	}
+	
 }

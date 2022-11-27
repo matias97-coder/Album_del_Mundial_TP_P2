@@ -22,8 +22,8 @@ public abstract class Album {
 		
 		StringBuilder st= new StringBuilder();
 		
-		st.append ("\n") .append (" codigoAlbum: ") .append (codigoAlbum) .append (" premio: ").append(premio).append ("\n");
-	
+		st.append ("\n") .append (" codigoAlbum: ") .append (codigoAlbum) .append (" premio: ").append(premio).append (" ");
+
 		return st.toString();
 	}
 	

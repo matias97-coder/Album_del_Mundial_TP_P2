@@ -8,6 +8,17 @@ public class AlbumExtendido extends Album {
 	private int totalJugadoresTOP=20;
 	private HashMap<String, SeccionTOP10> seccionTop10;
 	private String [] mundialesTop10;
+	
+	@Override
+	public String toString() {
+		
+		StringBuilder st= new StringBuilder();
+		
+		st.append (super.toString());
+		st.append ("|Extendido cant FigusPegadas:").append (cantTotalDeFiguritasPegadas ()+figuritasTOPpegadas).append("\n");
+		
+		return st.toString();
+	}
 
 	public AlbumExtendido(String premio, Integer codigoAlbum, String[] paisesClasificados, String [] mundialesTop10) {
 		super(premio, codigoAlbum, paisesClasificados);
