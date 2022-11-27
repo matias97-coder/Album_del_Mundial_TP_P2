@@ -1,7 +1,5 @@
 package albumMundial;
 
-import java.util.List;
-
 public class CodigoCliente {
 
 	public static void main(String[] args) {
