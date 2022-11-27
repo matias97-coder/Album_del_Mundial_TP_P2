@@ -107,7 +107,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 				throw new RuntimeException("El codigo promocional ya fue utilizado");
 			}
 		}else {
-			throw new RuntimeException("El participante no tiene codigo promocional");
+			throw new RuntimeException("El participante ("+dni+"-"+ part.obtenerNombreUsuario()+") no tiene codigo promocional");
 		}
 	}
 	/**

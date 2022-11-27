@@ -13,7 +13,7 @@ public class CodigoCliente {
 		sistema.registrarParticipante(666666, "Jazzmine", "Extendido");
 		sistema.registrarParticipante(777777, "Dante", "Tradicional");
 
-//		sistema.comprarFiguritasConCodigoPromocional(333333);
+    	sistema.comprarFiguritasConCodigoPromocional(333333);
 		
 		/*
 		
