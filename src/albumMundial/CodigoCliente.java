@@ -13,7 +13,7 @@ public class CodigoCliente {
 		sistema.registrarParticipante(666666, "Jazzmine", "Extendido");
 		sistema.registrarParticipante(777777, "Dante", "Tradicional");
 
-    	sistema.comprarFiguritasConCodigoPromocional(333333);
+    	//sistema.comprarFiguritasConCodigoPromocional(333333);
 		
 		/*
 		
@@ -41,7 +41,7 @@ public class CodigoCliente {
 			sistema.comprarFiguritas(777777);
 		}
 		sistema.intercambiarUnaFiguritaRepetida(222222);
-/*
+
 		sistema.pegarFiguritas(333333);
 
 		// Simulamos un uso prolongado del sistema.
@@ -52,13 +52,13 @@ public class CodigoCliente {
 			sistema.pegarFiguritas(555555);
 		}
 
-		for (int i = 0; i < 1200; i++) {
+		for (int i = 0; i < 700; i++) {
 			sistema.comprarFiguritasTop10(333333);
 			sistema.pegarFiguritas(333333);
 			sistema.comprarFiguritas(333333);
 			//sistema.pegarFiguritas(333333);
 		}
-*/
+
 		
 		if (sistema.llenoAlbum(222222)) {
 			

@@ -39,18 +39,29 @@ public class AlbumExtendido extends Album {
 		return figuritasTOPpegadas == totalJugadoresTOP;
 	}
 	
-	public boolean estaPegadaLaFigEnSecTOP(Figurita fig) {
-		SeccionTOP10 sec10 = seccionTop10.get(fig.obtenerNombrePais());
+	@Override
+	public boolean tienePegadaFigurita(Figurita fig) {
 		
+		if (fig instanceof FiguritaTradicional)
+			return super.tienePegadaFigurita(fig); //Llama al metodo de su clase padre ALBUM 
+	
+		SeccionTOP10 sec10 = seccionTop10.get(fig.obtenerNombrePais());
 		return  sec10.tieneFiguritaPegadaSeccionTOP10(fig);
 	}
 	
-	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
-		SeccionTOP10 secTOP= seccionTop10.get(fig.obtenerNombrePais());
+	
+	@Override
+	public void pegarFiguritaEnElAlbum(Figurita fig) {
 		
-		if ((figuritasTOPpegadas<totalJugadoresTOP)){
+		if (fig instanceof FiguritaTradicional)
+			super.pegarFiguritaEnElAlbum(fig); /*LLAMA al metodo pegar de su clase padre "ALBUM"
+											 	 en caso que la figurita que quiera pegar sea de tipo tradicional*/
+		
+		if ((figuritasTOPpegadas<totalJugadoresTOP) && fig instanceof FiguritaTOP10){
+			SeccionTOP10 secTOP= seccionTop10.get(fig.obtenerNombrePais());
 			secTOP.pegarFiguritaEnLaSeccionTOP(fig);
 			figuritasTOPpegadas++;
+			
 		}
 	}
 

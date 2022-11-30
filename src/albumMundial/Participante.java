@@ -93,25 +93,13 @@ public class Participante {
 		Iterator<Figurita> it = coleccionDeFiguritas.iterator();
 		while(it.hasNext() ) {
 			Figurita fig =it.next(); 
-			if(fig instanceof FiguritaTradicional) {
-				// en .pegarFiguraEnElAlbum(fig) ya vilida si se puede pegar o no la fig
+
 				if (album.tienePegadaFigurita(fig) == false) {
-					album.pegarFiguraEnElAlbum(fig);
+					album.pegarFiguritaEnElAlbum(fig);
 					figuritasPegadasN.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
 					it.remove();
 				}
-			}
-			
-			else {
-				if(fig instanceof FiguritaTOP10) {
-					if (((AlbumExtendido)album).estaPegadaLaFigEnSecTOP(fig) == false) {
-						((AlbumExtendido)album).pegarFiguritaEnLaSeccionTOP(fig);
-						figuritasPegadasN.add(fig.obtenerNombrePais() + " - " + fig.obtenerNombreJugador());
-						it.remove();
-					}
-				}
-			}
-			
+
 		}
 
 		return figuritasPegadasN;
