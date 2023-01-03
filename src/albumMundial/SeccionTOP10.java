@@ -1,12 +1,15 @@
 package albumMundial;
 
+import java.util.ArrayList;
+
 public class SeccionTOP10 {
 	private String sede;
-	private String [] seccionTOP;
+	private ArrayList<String> seccionTop;
+	private static final int tamanioSeccion=2;
 	
 	public SeccionTOP10(String sede) {
 		this.sede=sede;
-		seccionTOP= new String[2];
+		seccionTop=cargarSeccionTOP();
 	}
 
 	public String obtenerSeccionSedeMundial() {
@@ -15,15 +18,26 @@ public class SeccionTOP10 {
 	
 	// true= hay fig pegada
 	// false= es que la seccion esta en null, 
+	
 	public boolean tieneFiguritaPegadaSeccionTOP10 (Figurita fig) {
-		return seccionTOP[fig.obtenerPosicion()]!= null;
+		return seccionTop.get(fig.obtenerPosicion())!=null;
 	}
 	
 
 	
 	public void pegarFiguritaEnLaSeccionTOP(Figurita fig) {
-		seccionTOP[fig.obtenerPosicion()] = fig.obtenerNombreJugador();// seccion.add(index, String)
+		seccionTop.set(fig.obtenerPosicion(), fig.obtenerNombreJugador());
 	}
 	
+	private ArrayList<String> cargarSeccionTOP() {
+		 ArrayList<String> seccion= new ArrayList<String>();
+		 
+		 for (int i=0;i<tamanioSeccion;i++) {
+			 seccion.add(null);
+		 }
+		 
+		 return seccion;
+	}
 
 }
+
