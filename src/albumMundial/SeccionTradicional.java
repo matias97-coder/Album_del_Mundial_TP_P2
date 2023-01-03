@@ -1,14 +1,17 @@
 package albumMundial;
 
+import java.util.ArrayList;
+
 public class SeccionTradicional {
 
 	private int figuritaPegadas;
 	private String pais;
-	private String [] seccion;
+	private ArrayList<String> seccion;
+	private static final int tamanioSeccionTradicional=12;
 	
 	public SeccionTradicional(String pais) {
 		this.pais=pais;
-		seccion = new String[12];
+		seccion=cargarSeccionTradacional();
 		figuritaPegadas=0;
 	}
 	
@@ -29,7 +32,7 @@ public class SeccionTradicional {
 	 * seccion.get(fig.obtenerPosicion())=null;
 	*/
 	public boolean tieneFiguritaPegadaSeccion (Figurita fig) {
-		return  seccion[fig.obtenerPosicion()] != null;
+		return  seccion.get(fig.obtenerPosicion())!=null;
 	}
 	
 	//si da true, entonces no pude pegar la figurita
@@ -38,16 +41,22 @@ public class SeccionTradicional {
 		
 			/*
 			 * index= codFig 0 a 11 , String= nombre Jugador
-			 * seccion.add(index, String)
+			 * seccion.set(index, String)
 			*/
 			if ((figuritaPegadas<12)) {
-				seccion[fig.obtenerPosicion()] = fig.obtenerNombreJugador();
-			figuritaPegadas++; // este contador solo llega hasta 12
+				seccion.set(fig.obtenerPosicion(), fig.obtenerNombreJugador());
+				figuritaPegadas++; // este contador solo llega hasta 12
 			}
 	}
 	
-	public int cantSeccionesCreadas() {
-		return seccion.length;
+	// crea un ArrayList con 12 posiciones en null
+	private ArrayList<String> cargarSeccionTradacional(){
+		ArrayList<String> seccionT = new ArrayList<String>();
+		
+		for (int i=0;i<tamanioSeccionTradicional;i++) {
+			seccionT.add(null);
+		}
+		return seccionT;
 	}
 	
 }
