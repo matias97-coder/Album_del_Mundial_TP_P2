@@ -31,7 +31,7 @@ public abstract class Album {
 		this.premio = premio;
 		this.codigoAlbum = codigoAlbum;
 		this.paisesClasificados = paisesClasificados;
-		this.seccionesJugadores= generarSeccionJugadores();
+		seccionesJugadores= generarSeccionJugadores();
 		figuritasTotales=0;
 	} 
 
