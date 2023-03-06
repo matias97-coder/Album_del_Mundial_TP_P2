@@ -34,7 +34,7 @@ public class AlbumDelMundial implements IAlbumDelMundial {
 		
 		Album album = generarAlbum(tipoAlbum);
 		
-		if(album.equals(null)) {
+		if(album==null) {
 			throw new RuntimeException("Tipo de album inválido");
 		}
 		
